@@ -1,4 +1,4 @@
-# Episode 01 - Introduction
+# Episode 15 - Limiters
 
 ## Resources:
 

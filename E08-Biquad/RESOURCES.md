@@ -1,4 +1,4 @@
-# Episode 01 - Introduction
+# Episode 08 - Biquad
 
 ## Resources:
 

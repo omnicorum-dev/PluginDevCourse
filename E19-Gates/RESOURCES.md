@@ -1,4 +1,4 @@
-# Episode 01 - Introduction
+# Episode 19 - Gates
 
 ## Resources:
 
