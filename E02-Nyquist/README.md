@@ -1,3 +1,5 @@
-# TEST
+# Episode 02 - Nyquist
 
-Does this automatically pop up?
+## Resources:
+
+Here are some resources!
