@@ -4,6 +4,10 @@
 
 - Distortion.h
 
+## Plugins
+
+- pdcDistortion/
+
 ## Resources
 
 Here are some resources!

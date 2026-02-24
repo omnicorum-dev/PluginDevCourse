@@ -4,6 +4,10 @@
 
 - Biquad.h
 
+## Plugins
+
+- pdcFilter/
+
 ## Resources
 
 Robert Bristow-Johnson's Biquad Filters:

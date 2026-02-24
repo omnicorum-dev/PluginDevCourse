@@ -1,5 +1,9 @@
 # Episode 18 - FFT
 
+## Classes
+
+- FFT.h
+
 ## Resources
 
 Christopher Bennett - Digital Audio Theory (Chapters 12+13)

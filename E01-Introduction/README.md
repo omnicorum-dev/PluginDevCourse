@@ -1,5 +1,9 @@
 # Episode 01 - Introduction
 
+## Plugins
+
+- pdcHardClip/
+
 ## Resources
 
 Christopher Bennett - Digital Audio Theory

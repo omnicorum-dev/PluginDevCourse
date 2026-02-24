@@ -1,5 +1,9 @@
 # Episode 07 - Filters
 
+## Classes
+
+- OnePole.h
+
 ## Resources
 
 Christopher Bennett - Digital Audio Theory (Chapter 10)

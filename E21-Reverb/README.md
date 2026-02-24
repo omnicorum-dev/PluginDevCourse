@@ -1,5 +1,9 @@
 # Episode 21 - Reverb
 
+## Plugins
+
+- pdcReverb/
+
 ## Resources
 
 Geraint Luff - Let's Write a Reverb

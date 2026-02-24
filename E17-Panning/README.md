@@ -6,6 +6,10 @@
 - MidSide.h
 - JStereo.h
 
+## Plugins
+
+- pdcStereo/
+
 ## Resources
 
 Here are some resources!
