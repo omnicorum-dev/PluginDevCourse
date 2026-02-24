@@ -2,7 +2,7 @@
 
 ## Plugins
 
-- pdcHardClip/
+- TODO [pdcHardClipV1](../Templates_Materials/Plugins/pdcHardClipV1)
 
 ## Resources
 

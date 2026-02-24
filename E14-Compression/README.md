@@ -2,11 +2,11 @@
 
 ## Classes
 
-- Compressor.h
+- TODO [Compressor.h](../Templates_Materials/Classes/Compressor.h)
 
 ## Plugins
 
-- pdcCompressor/
+- TODO [pdcCompressor](../Templates_Materials/Plugins/pdcCompressor)
 
 ## Resources
 

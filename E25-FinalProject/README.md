@@ -2,7 +2,7 @@
 
 ## Plugins
 
-- pdcResynthesisEngine/
+- TODO [pdcResynthesisEngine](../Templates_Materials/Plugins/pdcResynthesisEngine)
 
 ## Resources
 

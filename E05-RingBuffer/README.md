@@ -2,8 +2,8 @@
 
 ## Classes
 
-- RingBuffer.h
-- DelayLine.h
+- [RingBuffer.h](../Templates_Materials/Classes/RingBuffer.h)
+- [DelayLine.h](../Templates_Materials/Classes/DelayLine.h)
 
 ## Resources
 

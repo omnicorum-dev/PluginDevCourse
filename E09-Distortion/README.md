@@ -2,11 +2,11 @@
 
 ## Classes
 
-- Distortion.h
+- [Distortion.h](../Templates_Materials/Classes/Distortion.h)
 
 ## Plugins
 
-- pdcDistortion/
+- TODO [pdcDistortion](../Templates_Materials/Plugins/pdcDistortion)
 
 ## Resources
 

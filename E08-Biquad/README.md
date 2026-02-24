@@ -2,11 +2,11 @@
 
 ## Classes
 
-- Biquad.h
+- [Biquad.h](../Templates_Materials/Classes/Biquad.h)
 
 ## Plugins
 
-- pdcFilter/
+- TODO [pdcFilter](../Templates_Materials/Plugins/pdcFilter)
 
 ## Challenge
 

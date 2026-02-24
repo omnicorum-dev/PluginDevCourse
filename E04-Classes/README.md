@@ -2,7 +2,11 @@
 
 ## Classes
 
-- HardClipper.h
+- TODO [HardClip.h](../Templates_Materials/Classes/HardClip.h)
+
+## Plugins
+
+- TODO [pdcHardClip](../Templates_Materials/Plugins/pdcHardClipperV2)
 
 ## Resources
 

@@ -2,7 +2,7 @@
 
 ## Plugins
 
-- pdcEcho/
+- TODO [pdcEcho](../Templates_Materials/Plugins/pdcEcho)
 
 ## Resources
 
