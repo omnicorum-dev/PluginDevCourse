@@ -1,5 +1,5 @@
 # Episode 22 - Sampler
 
-## Resources:
+## Resources
 
 Here are some resources!

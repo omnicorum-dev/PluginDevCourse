@@ -1,5 +1,5 @@
 # Episode 12 - Envelopes
 
-## Resources:
+## Resources
 
 Here are some resources!

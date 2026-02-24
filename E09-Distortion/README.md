@@ -1,5 +1,9 @@
 # Episode 09 - Distortion
 
-## Resources:
+## Classes
+
+- Distortion.h
+
+## Resources
 
 Here are some resources!

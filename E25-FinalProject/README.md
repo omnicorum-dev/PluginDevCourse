@@ -1,5 +1,5 @@
 # Episode 25 - Final Project
 
-## Resources:
+## Resources
 
 Here are some resources!

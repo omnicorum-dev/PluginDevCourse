@@ -1,5 +1,5 @@
 # Episode 14 - Compression
 
-## Resources:
+## Resources
 
 Here are some resources!

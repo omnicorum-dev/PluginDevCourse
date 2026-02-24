@@ -1,5 +1,5 @@
 # Episode 24 - Multiband
 
-## Resources:
+## Resources
 
 Here are some resources!

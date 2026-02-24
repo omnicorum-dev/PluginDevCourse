@@ -1,5 +1,9 @@
 # Episode 13 - Envelope Follower
 
-## Resources:
+## Classes
+
+- AudioDetector.h
+
+## Resources
 
 Here are some resources!

@@ -1,5 +1,5 @@
 # Episode 16 - Sidechain
 
-## Resources:
+## Resources
 
 Here are some resources!

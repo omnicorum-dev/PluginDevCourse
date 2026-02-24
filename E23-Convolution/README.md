@@ -1,5 +1,5 @@
 # Episode 23 - Convolution
 
-## Resources:
+## Resources
 
 Here are some resources!

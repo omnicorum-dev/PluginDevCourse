@@ -1,5 +1,5 @@
 # Episode 15 - Limiters
 
-## Resources:
+## Resources
 
 Here are some resources!

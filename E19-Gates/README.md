@@ -1,5 +1,5 @@
 # Episode 19 - Gates
 
-## Resources:
+## Resources
 
 Here are some resources!

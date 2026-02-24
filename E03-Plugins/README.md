@@ -1,5 +1,5 @@
 # Episode 03 - Plugins
 
-## Resources:
+## Resources
 
 Here are some resources!

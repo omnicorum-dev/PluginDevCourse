@@ -1,5 +1,5 @@
 # Episode 06 - Echo
 
-## Resources:
+## Resources
 
 Here are some resources!

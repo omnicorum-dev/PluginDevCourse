@@ -1,5 +1,11 @@
 # Episode 17 - Panning
 
-## Resources:
+## Classes
+
+- Panner.h
+- MidSide.h
+- JStereo.h
+
+## Resources
 
 Here are some resources!

@@ -1,5 +1,7 @@
 # Episode 11 - MIDI
 
-## Resources:
+## Resources
 
-Here are some resources!
+MIDI 1.1 Spec
+
+- [Interactive Website](https://midimusic.github.io/tech/midispec.html)

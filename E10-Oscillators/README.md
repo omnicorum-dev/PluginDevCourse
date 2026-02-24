@@ -1,5 +1,9 @@
 # Episode 10 - Oscillators
 
-## Resources:
+## Classes
+
+- Oscillator.h
+
+## Resources
 
 Here are some resources!

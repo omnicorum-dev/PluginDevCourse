@@ -1,5 +1,10 @@
 # Episode 05 - Ring Buffer
 
-## Resources:
+## Classes
 
-Here are some resources!
+- RingBuffer.h
+- DelayLine.h
+
+## Resources
+
+Here are some cool resources!

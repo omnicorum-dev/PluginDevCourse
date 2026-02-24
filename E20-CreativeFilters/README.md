@@ -1,5 +1,5 @@
 # Episode 20 - Creative Filters
 
-## Resources:
+## Resources
 
 Here are some resources!

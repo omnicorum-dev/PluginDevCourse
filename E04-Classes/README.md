@@ -1,5 +1,5 @@
 # Episode 04 - Classes
 
-## Resources:
+## Resources
 
 Here are some resources!
