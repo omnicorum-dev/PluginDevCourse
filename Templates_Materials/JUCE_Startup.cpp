@@ -397,6 +397,11 @@ void YourPluginAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, j
 //
 // ================================================================================================================
 
+void YourPluginAudioProcessor::createEditor()
+{
+    return new juce::GenericAudioProcessorEditor(*this);
+}
+
 void YourPluginAudioProcessor::getStateInformation (juce::MemoryBlock& destData)
 {
     auto state = apvts.copyState();
@@ -410,11 +415,6 @@ void YourPluginAudioProcessor::setStateInformation (const void* data, int sizeIn
     if (xmlState.get() != nullptr)
         if (xmlState->hasTagName(apvts.state.getType()))
             apvts.replaceState(juce::ValueTree::fromXml(*xmlState));
-}
-
-void YourPluginAudioProcessor::createEditor()
-{
-    return new juce::GenericAudioProcessorEditor(*this);
 }
 
 
