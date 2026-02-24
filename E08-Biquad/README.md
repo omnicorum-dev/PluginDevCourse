@@ -8,6 +8,10 @@
 
 - pdcFilter/
 
+## Challenge
+
+Add a filter to the feedback loop of your Echo plugin!
+
 ## Resources
 
 Robert Bristow-Johnson's Biquad Filters:
