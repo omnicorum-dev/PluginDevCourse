@@ -8,7 +8,7 @@
 
 ## Plugins
 
-- TODO [pdcStereo](../Templates_Materials/Plugins/pdcStereo)
+- [pdcStereo](../Templates_Materials/Plugins/pdcStereo)
 
 ## Resources
 

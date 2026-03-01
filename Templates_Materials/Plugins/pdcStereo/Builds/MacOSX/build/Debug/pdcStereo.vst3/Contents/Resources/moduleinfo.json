@@ -1,0 +1,48 @@
+{
+  "Name": "PDC Stereo",
+  "Version": "1.0.0",
+  "Factory Info": {
+    "Vendor": "Omnicorum",
+    "URL": "https://github.com/omnicorum-dev/PluginDevCourse",
+    "E-Mail": "",
+    "Flags": {
+      "Unicode": true,
+      "Classes Discardable": false,
+      "Component Non Discardable": false,
+    },
+  },
+  "Classes": [
+    {
+      "CID": "ABCDEF019182FAEB4F4D4E4950444353",
+      "Category": "Audio Module Class",
+      "Name": "PDC Stereo",
+      "Vendor": "Omnicorum",
+      "Version": "1.0.0",
+      "SDKVersion": "VST 3.8.0",
+      "Sub Categories": [
+        "Fx",
+        "Stereo",
+      ],
+      "Class Flags": 0,
+      "Cardinality": 2147483647,
+      "Snapshots": [
+      ],
+    },
+    {
+      "CID": "ABCDEF011234ABCD4F4D4E4950444353",
+      "Category": "Component Controller Class",
+      "Name": "PDC Stereo",
+      "Vendor": "Omnicorum",
+      "Version": "1.0.0",
+      "SDKVersion": "VST 3.8.0",
+      "Sub Categories": [
+        "Fx",
+        "Stereo",
+      ],
+      "Class Flags": 0,
+      "Cardinality": 2147483647,
+      "Snapshots": [
+      ],
+    },
+  ],
+}
