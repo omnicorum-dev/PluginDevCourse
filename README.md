@@ -1,5 +1,17 @@
 # Intro to Plugin Development Course
 
+## TODOs (Episodes 1-10)
+
+Classes
+
+- E07 - OnePole.h
+
+Plugins
+
+- E06 - pdcEcho
+- E08 - pdcFilter
+- E09 - pdcDistortion
+
 ## Repo Layout
 
 Each episode has its own directory.
