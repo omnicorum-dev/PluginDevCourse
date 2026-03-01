@@ -1,0 +1,50 @@
+{
+  "Name": "PDC Hard Clip V1",
+  "Version": "1.0.0",
+  "Factory Info": {
+    "Vendor": "Omnicorum",
+    "URL": "https://github.com/omnicorum-dev/PluginDevCourse",
+    "E-Mail": "",
+    "Flags": {
+      "Unicode": true,
+      "Classes Discardable": false,
+      "Component Non Discardable": false,
+    },
+  },
+  "Classes": [
+    {
+      "CID": "ABCDEF019182FAEB4F4D4E494843564F",
+      "Category": "Audio Module Class",
+      "Name": "PDC Hard Clip V1",
+      "Vendor": "Omnicorum",
+      "Version": "1.0.0",
+      "SDKVersion": "VST 3.8.0",
+      "Sub Categories": [
+        "Fx",
+        "Distortion",
+        "Dynamics",
+      ],
+      "Class Flags": 0,
+      "Cardinality": 2147483647,
+      "Snapshots": [
+      ],
+    },
+    {
+      "CID": "ABCDEF011234ABCD4F4D4E494843564F",
+      "Category": "Component Controller Class",
+      "Name": "PDC Hard Clip V1",
+      "Vendor": "Omnicorum",
+      "Version": "1.0.0",
+      "SDKVersion": "VST 3.8.0",
+      "Sub Categories": [
+        "Fx",
+        "Distortion",
+        "Dynamics",
+      ],
+      "Class Flags": 0,
+      "Cardinality": 2147483647,
+      "Snapshots": [
+      ],
+    },
+  ],
+}
