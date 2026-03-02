@@ -6,4 +6,5 @@ but I still think are helpful (or I just wanted to make them).
 - Course philosophy
 - The process of making a main episode
 - About the license on the repo
+- What is the starter code doing?
 - Code signing for plugin distribution
