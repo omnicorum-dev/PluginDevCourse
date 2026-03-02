@@ -89,8 +89,26 @@ Learn about generating ADSR modulation signals, and apply them to
 our basic synthesizer.
 
 **[Project 1 - Midterm:](/Projects/P1-MidtermProject/)**
-Build a synthesizer plugin! Detailed description can be found in
+Build a synthesizer plugin! A detailed description can be found in
 the episode folder.
+
+### Semester 2: E13-E24 & Final Project
+
+These episodes are **incomplete** and have yet to be fleshed out.
+
+Key elements I want to hit:
+
+- Compressors & Limiters
+- Sidechain input
+- Stereo processing
+- FFT processing
+- Gates
+- Multiband processing
+- Creative filters
+
+**[Project 2 - Final:](/Projects/P2-FinalProject/)**
+Build a Resynthesis Engine plugin! A detailed description can
+be found in the episode folder.
 
 ## References
 
