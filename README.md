@@ -27,6 +27,8 @@ Be sure to keep these handy.
 
 ## Episodes
 
+### Semester 1: E01-E12 & Midterm Project
+
 **E01 - Introduction:**
 Learn how to start a new JUCE project and build your first working plugin:
 a simple hard-clipper!
@@ -72,3 +74,7 @@ pitch of an oscillator, and learn about monophony vs. ployphony
 **E12 - Envelopes:**
 Learn about generating ADSR modulation signals, and apply them to
 our basic synthesizer.
+
+**Project 1 - Midterm:**
+Build a synthesizer plugin! Detailed description can be found in
+the episode folder.
