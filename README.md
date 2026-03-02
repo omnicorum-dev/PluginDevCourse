@@ -42,52 +42,52 @@ Be sure to keep these handy.
 
 ### Semester 1: E01-E12 & Midterm Project
 
-**[E01 - Introduction:](/E01-Introduction/)**
+**[E01 - Introduction:](/Episodes/E01-Introduction/)**
 Learn how to start a new JUCE project and build your first working plugin:
 a simple hard-clipper!
 
-**[E02 - Nyquist and Sampling:](/E02-Nyquist/)**
+**[E02 - Nyquist and Sampling:](/Episodes/E02-Nyquist/)**
 Learn the basics of Digital Signal Processing (DSP)
 and essential concepts when designing audio processing algorithms.
 
-**[E03 - Plugins: Dos and Do Nots:](/E03-Plugins/)**
+**[E03 - Plugins: Dos and Do Nots:](/Episodes/E03-Plugins/)**
 Learn the essentials of plugin structure and best practices
 to not shoot yourself in the foot while making real-time audio algorithms.
 
-**[E04 - Classes:](/E04-Classes/)**
+**[E04 - Classes:](/Episodes/E04-Classes/)**
 Learn how object-oriented classes can be designed and used in plugins,
 by porting our hard-clipper into a class.
 
-**[E05 - Ring Buffer and Delay Line:](/E05-RingBuffer/)**
+**[E05 - Ring Buffer and Delay Line:](/Episodes/E05-RingBuffer/)**
 Learn how to create long-term delays through a circular buffer and delay line.
 
-**[E06 - Echo:](/E06-Echo/)**
+**[E06 - Echo:](/Episodes/E06-Echo/)**
 Learn how to implement feedback and host (DAW) tempo-syncing
 by creating a basic Echo delay plugin.
 
-**[E07 - Filters Pt. I:](/E07-Filters/)**
+**[E07 - Filters Pt. I:](/Episodes/E07-Filters/)**
 Learn about block diagrams and transfer functions, and how to translate them
 into code by implementing an abstract Biquad class.
 
-**[E08 - Filters Pt. II:](/E08-Filters2/)**
+**[E08 - Filters Pt. II:](/Episodes/E08-Filters2/)**
 Implement the Robert Bristow-Johnson Filter algorithms, as well as how to adapt
 them into higher order filters.
 
-**[E09 - Distortion:](/E09-Distortion/)**
+**[E09 - Distortion:](/Episodes/E09-Distortion/)**
 Create a Distortion abstract class to easily create distortions and hysteresis.
 Additionally, learn the basic concepts of oversampling.
 
-**[E10 - Oscillators:](/E10-Oscillators/)**
+**[E10 - Oscillators:](/Episodes/E10-Oscillators/)**
 Learn how to synthesize the basic shapes digitally, and how to prevent aliasing.
 
-**[E11 - MIDI:](/E11-MIDI/)**
+**[E11 - MIDI:](/Episodes/E11-MIDI/)**
 Learn how to use MIDI input from the host. Use it to control the
 pitch of an oscillator, and learn about monophony vs. ployphony
 
-**[E12 - Envelopes:](/E12-Envelopes/)**
+**[E12 - Envelopes:](/Episodes/E12-Envelopes/)**
 Learn about generating ADSR modulation signals, and apply them to
 our basic synthesizer.
 
-**[Project 1 - Midterm:](/P1-MidtermProject/)**
+**[Project 1 - Midterm:](/Projects/P1-MidtermProject/)**
 Build a synthesizer plugin! Detailed description can be found in
 the episode folder.
