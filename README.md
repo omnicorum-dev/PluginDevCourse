@@ -96,8 +96,6 @@ the episode folder.
 
 These episodes are **incomplete** and have yet to be fleshed out.
 
-Key elements I want to hit:
-
 - Compressors & Limiters
 - Sidechain input
 - Stereo processing
