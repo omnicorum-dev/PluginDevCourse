@@ -2,7 +2,7 @@
 
 ## Classes
 
-- TODO [OnePole.h](../Templates_Materials/Classes/OnePole.h)
+- Beginning [Biquad.h](../Templates_Materials/Classes/Biquad.h)
 
 ## Resources
 

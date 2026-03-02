@@ -2,7 +2,8 @@
 
 ## Classes
 
-- [Biquad.h](../Templates_Materials/Classes/Biquad.h)
+- Completed [Biquad.h](../Templates_Materials/Classes/Biquad.h)
+- TODO [HighOrderFilter.h](../Templates_Materials/Classes/HighOrderFilter.h)
 
 ## Plugins
 

@@ -22,3 +22,8 @@ linked to in the `README.md` in the corresponding folder.
 Templates and materials can be found in the `Templates_Materials` folder, and
 will be used in various episodes throughout the course.
 Be sure to keep these handy.
+
+## Episodes
+
+E01 - Introduction
+Blardy
