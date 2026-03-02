@@ -94,14 +94,14 @@ the episode folder.
 
 ## References
 
-S. Freeman, S.L. Eddy, M. McDonough, M.K. Smith,
+1. S. Freeman, S.L. Eddy, M. McDonough, M.K. Smith,
 N. Okoroafor, H. Jordt, & M.P. Wenderoth,
 Active learning increases student performance in science,
 engineering, and mathematics, Proc. Natl. Acad. Sci. U.S.A. 111
 (23) 8410-8415, [https://doi.org/10.1073/pnas.1319030111](https://doi.org/10.1073/pnas.1319030111)
 (2014).
 
-Kooloos JGM, Bergman EM, Scheffers MAGP, Schepens-Franke AN,
+2. Kooloos JGM, Bergman EM, Scheffers MAGP, Schepens-Franke AN,
 Vorstenbosch MATM. The Effect of Passive and Active Education
 Methods Applied in Repetition Activities on the Retention of
 Anatomical Knowledge. Anat Sci Educ. 2020 Jul;13(4):458-466.
