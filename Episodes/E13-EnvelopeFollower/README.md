@@ -2,7 +2,7 @@
 
 ## Classes
 
-- [AudioDetector.h](../Templates_Materials/Classes/AudioDetector.h)
+- [AudioDetector.h](/Templates_Materials/Classes/AudioDetector.h)
 
 ## Resources
 

@@ -2,12 +2,12 @@
 
 ## Classes
 
-- Completed [Biquad.h](../Templates_Materials/Classes/Biquad.h)
-- TODO [HighOrderFilter.h](../Templates_Materials/Classes/HighOrderFilter.h)
+- Completed [Biquad.h](/Templates_Materials/Classes/Biquad.h)
+- TODO [HighOrderFilter.h](/Templates_Materials/Classes/HighOrderFilter.h)
 
 ## Plugins
 
-- TODO [pdcFilter](../Templates_Materials/Plugins/pdcFilter)
+- TODO [pdcFilter](/Templates_Materials/Plugins/pdcFilter)
 
 ## Challenge
 

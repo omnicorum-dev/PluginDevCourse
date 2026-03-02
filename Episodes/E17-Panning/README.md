@@ -2,13 +2,13 @@
 
 ## Classes
 
-- [Panner.h](../Templates_Materials/Classes/Panner.h)
-- [MidSide.h](../Templates_Materials/Classes/MidSide.h)
-- [JStereo.h](../Templates_Materials/Classes/JStereo.h)
+- [Panner.h](/Templates_Materials/Classes/Panner.h)
+- [MidSide.h](/Templates_Materials/Classes/MidSide.h)
+- [JStereo.h](/Templates_Materials/Classes/JStereo.h)
 
 ## Plugins
 
-- [pdcStereo](../Templates_Materials/Plugins/pdcStereo)
+- [pdcStereo](/Templates_Materials/Plugins/pdcStereo)
 
 ## Resources
 

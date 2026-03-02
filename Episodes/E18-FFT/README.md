@@ -2,7 +2,7 @@
 
 ## Classes
 
-- TODO: [FFT.h](../Templates_Materials/Classes/FFT.h)
+- TODO: [FFT.h](/Templates_Materials/Classes/FFT.h)
 
 ## Resources
 

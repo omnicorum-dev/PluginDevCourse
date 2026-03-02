@@ -2,10 +2,10 @@
 
 ## Plugins
 
-- TODO [pdcChorus](../Templates_Materials/Plugins/pdcChorus)
-- TODO [pdcFlanger](../Templates_Materials/Plugins/pdcFlanger)
-- TODO [pdcPhaser](../Templates_Materials/Plugins/pdcPhaser)
-- TODO [pdcComb](../Templates_Materials/Plugins/pdcComb)
+- TODO [pdcChorus](/Templates_Materials/Plugins/pdcChorus)
+- TODO [pdcFlanger](/Templates_Materials/Plugins/pdcFlanger)
+- TODO [pdcPhaser](/Templates_Materials/Plugins/pdcPhaser)
+- TODO [pdcComb](/Templates_Materials/Plugins/pdcComb)
 
 ## Resources
 

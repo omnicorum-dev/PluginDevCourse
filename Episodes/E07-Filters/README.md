@@ -2,7 +2,7 @@
 
 ## Classes
 
-- Beginning [Biquad.h](../Templates_Materials/Classes/Biquad.h)
+- Beginning [Biquad.h](/Templates_Materials/Classes/Biquad.h)
 
 ## Resources
 

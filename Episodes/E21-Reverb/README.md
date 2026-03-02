@@ -2,7 +2,7 @@
 
 ## Plugins
 
-- TODO [pdcReverb](../Templates_Materials/Plugins/pdcReverb)
+- TODO [pdcReverb](/Templates_Materials/Plugins/pdcReverb)
 
 ## Resources
 

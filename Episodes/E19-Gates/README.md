@@ -2,7 +2,7 @@
 
 ## Plugins
 
-- TODO [pdcGate](../Templates_Materials/Plugins/pdcGate)
+- TODO [pdcGate](/Templates_Materials/Plugins/pdcGate)
 
 ## Resources
 

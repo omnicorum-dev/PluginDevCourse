@@ -2,7 +2,7 @@
 
 ## Classes
 
-- [Oscillator.h](../Templates_Materials/Classes/Oscillator.h)
+- [Oscillator.h](/Templates_Materials/Classes/Oscillator.h)
 
 ## Resources
 

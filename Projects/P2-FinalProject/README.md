@@ -15,7 +15,7 @@ My own implementation will be shown in the Project 2 Episode.
 
 ## Plugins
 
-- TODO [pdcResynthesisEngine](../Templates_Materials/Plugins/pdcResynthesisEngine)
+- TODO [pdcResynthesisEngine](/Templates_Materials/Plugins/pdcResynthesisEngine)
 
 ## Resources
 
