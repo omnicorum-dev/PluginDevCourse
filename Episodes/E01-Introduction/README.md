@@ -6,6 +6,10 @@
 
 ## Resources
 
+[Git Website](https://git-scm.com/)
+
+[JUCE Website](https://juce.com/)
+
 Christopher Bennett - Digital Audio Theory
 
 - [Website](https://digitalaudiotheory.com/)
