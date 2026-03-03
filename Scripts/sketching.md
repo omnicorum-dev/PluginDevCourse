@@ -14,15 +14,30 @@ The course expects you to be *familiar* with basic C++ syntax and
 concepts before beginning, but **no digital signal processing
 knowledge is needed in advance**.
 
-## Templates
+## TODOs (Episodes 1-12)
 
-[JUCE_Startup.cpp](/Templates_Materials/JUCE_Startup.cpp) contains instructions
-for quickly starting a new project.
+Everything for E11 and E12
 
-[Basics.h](/Templates_Materials/Basics.h) and [ParameterLayout.h](/Templates_Materials/ParameterLayout.h)
-should be copied and added to the `Source` folder in the Projucer.
+Classes
 
-Detailed instructions are in Episode 1.
+- E08 - HighOrderFilter.h
+
+Plugins
+
+- E06 - pdcEcho
+- E08 - pdcFilter
+- E09 - pdcDistortion
+
+## Repo Layout
+
+Each episode has its own directory.
+The final product produced at the end of each episode will be available to
+download there. Additionally, any resources mentioned in the episode will be
+linked to in the `README.md` in the corresponding folder.
+
+Templates and materials can be found in the `Templates_Materials` folder, and
+will be used in various episodes throughout the course.
+Be sure to keep these handy.
 
 ## Episodes
 
@@ -77,6 +92,24 @@ our basic synthesizer.
 **[Project 1 - Midterm:](/Projects/P1-MidtermProject/)**
 Build a synthesizer plugin! A detailed description can be found in
 the episode folder.
+
+### Semester 2: E13-E24 & Final Project
+
+These episodes are **incomplete** and have yet to be fleshed out.
+
+- Compressors & Limiters
+- Sidechain input
+- Oversampling implementation
+- Polyphony implementation
+- Stereo processing
+- FFT processing
+- Gates
+- Multiband processing
+- Creative filters
+
+**[Project 2 - Final:](/Projects/P2-FinalProject/)**
+Build a Resynthesis Engine plugin! A detailed description can
+be found in the episode folder.
 
 ## References
 
