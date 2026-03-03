@@ -98,6 +98,8 @@ These episodes are **incomplete** and have yet to be fleshed out.
 
 - Compressors & Limiters
 - Sidechain input
+- Oversampling implementation
+- Polyphony implementation
 - Stereo processing
 - FFT processing
 - Gates
