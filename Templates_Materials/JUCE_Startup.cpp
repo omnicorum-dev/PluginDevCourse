@@ -26,135 +26,92 @@
 // ================================================================================================================
 
 // Add any #include's here above the class
+#include "Basics.h"
+#include "ParameterLayout.h"
 
 public:
     // APVTS for automation/presets/state
     juce::AudioProcessorValueTreeState apvts;
     
     // =============================================================================
-    // Parameter IDs and Setup
+    // Parameter Setup
     // =============================================================================
     struct Params
     {
-        // Format: {id, name, min, max, default, skew, stepSize, suffix}
+        // inGain (float)
+        SCString inGain_ID        = "inGain";
+        SCString inGain_Name      = "Input Gain";
+        SCFloat  inGain_Min       = -60.0f;
+        SCFloat  inGain_Max       = 12.0f;
+        SCFloat  inGain_Default   = 0.0f;
+        SCFloat  inGain_StepSize  = 0.1f;
+        SCFloat  inGain_Skew      = Skew::exponential;
+        SCString inGain_Suffix    = " dB";
         
-        // EXAMPLE PARAMETER TYPES
+        // outGain (float)
+        SCString outGain_ID       = "outGain";
+        SCString outGain_Name     = "Output Gain";
+        SCFloat  outGain_Min      = -60.0f;
+        SCFloat  outGain_Max      = 12.0f;
+        SCFloat  outGain_Default  = 0.0f;
+        SCFloat  outGain_StepSize = 0.1f;
+        SCFloat  outGain_Skew     = Skew::exponential;
+        SCString outGain_Suffix   = " dB";
         
-        // Linear Float Parameter
+        // mix (float)
+        SCString mix_ID           = "mix";
+        SCString mix_Name         = "Mix";
+        SCFloat  mix_Min          = 0.0f;
+        SCFloat  mix_Max          = 100.0f;
+        SCFloat  mix_Default      = 100.0f;
+        SCFloat  mix_StepSize     = 0.1f;
+        SCFloat  mix_Skew         = 3.f;
+        SCString mix_Suffix       = "%";
+        
+        // bypass (bool)
+        SCString bypass_ID        = "bypass";
+        SCString bypass_Name      = "Bypass";
+        SCBool   bypass_Default   = false;
+        
+        // example (int)
         /*
-        static constexpr const char* gain_ID   = "gain";
-        static constexpr const char* gain_Name = "Gain";
-        static constexpr float gain_Min        = 0.0f;
-        static constexpr float gain_Max        = 1.0f;
-        static constexpr float gain_Default    = 0.5f;
-        static constexpr float gain_StepSize   = 0.01f;
-        */
+         SCString example_ID      = "example";
+         SCString example_Name    = "Example";
+         SCInt    example_Min     = 0;
+         SCInt    example_Max     = 0;
+         SCInt    example_Default = 0;
+         SCString example_Suffix  = "";
+         */
         
-        // Logarithmic Float Parameter
+        // example (choice)
         /*
-        static constexpr const char* freq_ID   = "freq";
-        static constexpr const char* freq_Name = "Frequency";
-        static constexpr float freq_Min        = 20.0f;
-        static constexpr float freq_Max        = 20000.0f;
-        static constexpr float freq_Default    = 1000.0f;
-        static constexpr float freq_Skew       = 0.3f; // log scale
-        static constexpr float freq_StepSize   = 1.0f;
-        */
+         SCString example_ID      = "example";
+         SCString example_Name    = "Example";
+         juce::StringArray example_Choices = {
+             "Choice A", // 0
+             "Choice B", // 1
+             "Choice C", // 2
+         };
+         SCInt    example_Default = 0;
+         */
         
-        // Exponential Float Parameter
-        /*
-        static constexpr const char* inGain_ID     = "inGain";
-        static constexpr const char* inGain_Name   = "Input Gain";
-        static constexpr float inGain_Min          = -60.0f;
-        static constexpr float inGain_Max          = 12.0f;
-        static constexpr float inGain_Default      = 0.0f;
-        static constexpr float inGain_StepSize     = 0.1f;
-        static constexpr float inGain_Skew         = 3.f;
-        static constexpr const char* inGain_Suffix = " dB";
-        */
-        
-        // Dropdown Menu
-        /*
-        static constexpr const char* filterType_ID   = "filterType";
-        static constexpr const char* filterType_Name = "Filter Type";
-        static constexpr int filterType_Default      = 0;
-        // Choices defined in createParameterLayout()
-        */
-        
-        // Linear Integer Parameter
-        /*
-        static constexpr const char* voices_ID   = "voices";
-        static constexpr const char* voices_Name = "Voices";
-        static constexpr int voices_Min          = 1;
-        static constexpr int voices_Max          = 16;
-        static constexpr int voices_Default      = 4;
-        */
-        
-        // Tickbox/Boolean Parameter
-        /*
-        static constexpr const char* bypass_ID   = "bypass";
-        static constexpr const char* bypass_Name = "Bypass";
-        static constexpr bool bypass_Default     = false;
-        */
-        
-        static constexpr const char* inGain_ID     = "inGain";
-        static constexpr const char* inGain_Name   = "Input Gain";
-        static constexpr float inGain_Min          = -60.0f;
-        static constexpr float inGain_Max          = 12.0f;
-        static constexpr float inGain_Default      = 0.0f;
-        static constexpr float inGain_StepSize     = 0.1f;
-        static constexpr float inGain_Skew         = 3.f;
-        static constexpr const char* inGain_Suffix = " dB";
-        
-        static constexpr const char* outGain_ID     = "outGain";
-        static constexpr const char* outGain_Name   = "Output Gain";
-        static constexpr float outGain_Min          = -60.0f;
-        static constexpr float outGain_Max          = 12.0f;
-        static constexpr float outGain_Default      = 0.0f;
-        static constexpr float outGain_StepSize     = 0.1f;
-        static constexpr float outGain_Skew         = 3.f;
-        static constexpr const char* outGain_Suffix = " dB";
-        
-        static constexpr const char* mix_ID         = "mix";
-        static constexpr const char* mix_Name       = "Mix";
-        static constexpr float mix_Min              = 0.0f;
-        static constexpr float mix_Max              = 100.0f;
-        static constexpr float mix_Default          = 100.0f;
-        static constexpr float mix_StepSize         = 0.1f;
-        static constexpr const char* mix_Suffix     = "%";
-        
-        static constexpr const char* bypass_ID   = "bypass";
-        static constexpr const char* bypass_Name = "Bypass";
-        static constexpr bool bypass_Default     = false;
     };
-    
 
     // =============================================================================
-    // Smoothed values for audio-rate parameters (change continuously)
+    // Parameters for audio-rate parameters (change continuously)
     //     - These are generally your float-based parameters
     // =============================================================================
 
-    juce::SmoothedValue<float> inGainSmooth;
-    juce::SmoothedValue<float> outGainSmooth;
-    juce::SmoothedValue<float> mixSmooth;
-
-    // =============================================================================
-    // Previous values for parameters that require recalculation when changed
-    // =============================================================================
-
-    // Examples:
-    // float prevFreq = -1.0f;
-    // int prevFilterType = -1;
-
+    pdcFloat inGainSmooth;
+    pdcFloat outGainSmooth;
+    pdcFloat mixSmooth;
    
     // =============================================================================
-    // Direct access for control-rate parameters (change discretely)
-    //     - These are generally boolean, integer, or dropdown parameters
+    // Parameters for control-rate parameters (change discretely)
+    //     - These are generally boolean, integer, or choice parameters
     // =============================================================================
 
-    std::atomic<float>* bypassParam = nullptr;
-    // std::atomic<float>* filterTypeParam = nullptr;
-    // std::atomic<float>* voicesParam = nullptr;
+    pdcBool bypassParam;
 
 private:
     static juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
@@ -174,7 +131,6 @@ private:
 // SNIPPET 2: ADD MISSING ELEMENTS TO CONSTRUCTOR IN PluginProcessor.cpp
 //     - Comma after )
 //     - apvts function call
-//     - control rate parameter pointers
 //
 // ================================================================================================================
 
@@ -189,10 +145,8 @@ YourPluginAudioProcessor::YourPluginAudioProcessor()
                      #endif
                        ),
 #endif
-      apvts(*this, nullptr, "Parameters", createParameterLayout())
+apvts(*this, nullptr, "Parameters", createParameterLayout())
 {
-    // Get pointers to control-rate parameters for fast access
-    bypassParam = apvts.getRawParameterValue(Params::bypass_ID);
 }
 
 
@@ -208,50 +162,42 @@ juce::AudioProcessorValueTreeState::ParameterLayout YourPluginAudioProcessor::cr
 {
     juce::AudioProcessorValueTreeState::ParameterLayout layout;
     
-   layout.add(std::make_unique<juce::AudioParameterFloat>(
-       juce::ParameterID(Params::outGain_ID, 1),
-       Params::outGain_Name,
-       juce::NormalisableRange<float>(Params::outGain_Min, Params::outGain_Max, Params::outGain_StepSize, Params::outGain_Skew),
-       Params::outGain_Default,
-       Params::outGain_Suffix));
-   
-   layout.add(std::make_unique<juce::AudioParameterFloat>(
-       juce::ParameterID(Params::inGain_ID, 1),
-       Params::inGain_Name,
-       juce::NormalisableRange<float>(Params::inGain_Min, Params::inGain_Max, Params::inGain_StepSize, Params::inGain_Skew),
-       Params::inGain_Default,
-       Params::inGain_Suffix));
-   
-   layout.add(std::make_unique<juce::AudioParameterFloat>(
-       juce::ParameterID(Params::mix_ID, 1),
-       Params::mix_Name,
-       juce::NormalisableRange<float>(Params::mix_Min, Params::mix_Max, Params::mix_StepSize),
-       Params::mix_Default,
-       Params::mix_Suffix));
-   
-   layout.add(std::make_unique<juce::AudioParameterBool>(
-       juce::ParameterID(Params::bypass_ID, 1),
-       Params::bypass_Name,
-       Params::bypass_Default));
+    addFloat(layout,
+             Params::inGain_ID,
+             Params::inGain_Name,
+             Params::inGain_Min,
+             Params::inGain_Max,
+             Params::inGain_Default,
+             Params::inGain_StepSize,
+             Params::inGain_Skew,
+             Params::inGain_Suffix);
     
-    // MULTIPLE CHOICE EXAMPLE
-    /*
-    layout.add(std::make_unique<juce::AudioParameterChoice>(
-        juce::ParameterID(Params::filterType_ID, 1),
-        Params::filterType_Name,
-        juce::StringArray{"Low Pass", "High Pass", "Band Pass", "Notch"},
-        Params::filterType_Default));
-    */
+    addFloat(layout,
+             Params::outGain_ID,
+             Params::outGain_Name,
+             Params::outGain_Min,
+             Params::outGain_Max,
+             Params::outGain_Default,
+             Params::outGain_StepSize,
+             Params::outGain_Skew,
+             Params::outGain_Suffix);
     
-    // INTEGER EXAMPLE
-    /*
-    layout.add(std::make_unique<juce::AudioParameterInt>(
-        juce::ParameterID(Params::voices_ID, 1),
-        Params::voices_Name,
-        Params::voices_Min,
-        Params::voices_Max,
-        Params::voices_Default));
-    */
+    addFloat(layout,
+             Params::mix_ID,
+             Params::mix_Name,
+             Params::mix_Min,
+             Params::mix_Max,
+             Params::mix_Default,
+             Params::mix_StepSize,
+             Params::mix_Skew,
+             Params::mix_Suffix);
+    
+    addBool(layout,
+            Params::bypass_ID,
+            Params::bypass_Name,
+            Params::bypass_Default);
+    
+    // use addInt and addChoice for ints and choices
     
     return layout;
 }
@@ -269,24 +215,17 @@ juce::AudioProcessorValueTreeState::ParameterLayout YourPluginAudioProcessor::cr
 void YourPluginAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
     // =============================================================================
-    // Initialize smoothers
-    // =============================================================================
-
-    outGainSmooth.reset(sampleRate, 0.05);
-    inGainSmooth.reset(sampleRate, 0.05);
-    mixSmooth.reset(sampleRate, 0.05);
-    
-    
-    // =============================================================================
-    // Set to current values
+    // Prepare smoothers
     // =============================================================================
     
-    outGainSmooth.setCurrentAndTargetValue(apvts.getRawParameterValue(Params::outGain_ID)->load());
-    inGainSmooth.setCurrentAndTargetValue(apvts.getRawParameterValue(Params::inGain_ID)->load());
-    mixSmooth.setCurrentAndTargetValue(apvts.getRawParameterValue(Params::mix_ID)->load());
+    outGainSmooth.prepare(sampleRate, samplesPerBlock, &apvts, Params::outGain_ID);
+    inGainSmooth.prepare(sampleRate, samplesPerBlock, &apvts, Params::inGain_ID);
+    mixSmooth.prepare(sampleRate, samplesPerBlock, &apvts, Params::mix_ID);
+    
+    bypassParam.prepare(sampleRate, samplesPerBlock, &apvts, Params::bypass_ID);
     
     // =============================================================================
-    // Prepare any objects with sample rate or other setup
+    // Prepare any objects here
     // =============================================================================
     
     // Example:
@@ -317,11 +256,7 @@ void YourPluginAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, j
     // Read control parameters
     // =============================================================================
     
-    bool bypass = bypassParam->load() > 0.5f;
-    
-    // Multiple choice and integer examples:
-    // int filterType = static_cast<int>(filterTypeParam->load());
-    // int numVoices = static_cast<int>(voicesParam->load());
+    bool bypass = bypassParam.getNextValue();
     
     // =============================================================================
     // True Bypass
@@ -330,20 +265,12 @@ void YourPluginAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, j
     if (bypass) return;
     
     // =============================================================================
-    // Get raw parameter values
+    // Update smoothers
     // =============================================================================
     
-    float rawOutGain = apvts.getRawParameterValue(Params::outGain_ID)->load();
-    float rawinGain  = apvts.getRawParameterValue(Params::inGain_ID)->load();
-    float rawMix     = apvts.getRawParameterValue(Params::mix_ID)->load();
-    
-    // =============================================================================
-    // Update smoothed parameters
-    // =============================================================================
-    
-    outGainSmooth.setTargetValue(rawOutGain);
-    inGainSmooth.setTargetValue(rawinGain);
-    mixSmooth.setTargetValue(rawMix);
+    outGainSmooth.update();
+    inGainSmooth.update();
+    mixSmooth.update();
     
     // =============================================================================
     // Update objects for discrete changes
@@ -351,8 +278,9 @@ void YourPluginAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, j
 
     /*
      EXAMPLE:
-    if (filterType != prevFilterType) { prevFilterType = filterType; }
-    updateCoefficients();
+     if (filterTypeParam.changed()) {
+        updateCoefficients();
+     }
     */
     
     // =============================================================================
@@ -366,7 +294,7 @@ void YourPluginAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, j
         for (int sample = 0; sample < numSamples; ++sample)
         {
             float dry     = channelData[sample];
-            float inGain  = std::pow(10.0f, inGainSmooth.getNextValue()  / 20.f);
+            float inGain  = std::pow(10.0f, inGainSmooth.getNextValue() / 20.f);
             float outGain = std::pow(10.0f, outGainSmooth.getNextValue() / 20.f);
             float mix     = mixSmooth.getNextValue();
             
@@ -420,50 +348,26 @@ void YourPluginAudioProcessor::setStateInformation (const void* data, int sizeIn
 
 /*
  =================================================================================================================
- HOW TO ADD A NEW PARAMETER - Example: "Drive"
+ HOW TO ADD A NEW PARAMETER
  
  Step 1: Add to Params struct in PluginProcessor.h
- static constexpr const char* drive_ID   = "drive";
- static constexpr const char* drive_Name = "Drive";
- static constexpr float drive_Min        = 1.0f;
- static constexpr float drive_Max        = 10.0f;
- static constexpr float drive_Default    = 1.0f;
- static constexpr float drive_StepSize   = 0.01f;
- static constexpr float drive_Skew       = 0.3f; // optional for log scale
- static constexpr float drive_Suffix     = "dB"; // optional for suffix
+ See examples
  
- Step 2A: Add smoother to PluginProcessor.h (if it is a continuous parameter)
- juce::SmoothedValue<float> driveSmooth;
- 
- Step 2B: Add atomic access to PluginProcessor.h (if it is a discrete parameter)
- std::atomic<float>* driveParam = nullptr;
+ Step 2: Add parameter to PluginProcessor.h
+ pdcFloat, pdcInt, pdcBool, pdcChoice
  
  Step 3: Add to createParameterLayout() in PluginProcessor.cpp
-    - I recommend just copying one of the layouts already in the template and modifying names
-    - All values were set in Step 1, so you just need to link them here
+ addFloat(...), addInt(...), addBool(...), addChoice(...)
  
- layout.add(std::make_unique<juce::AudioParameterFloat>(
-     juce::ParameterID(Params::drive_ID, 1),
-     Params::drive_Name,
-     juce::NormalisableRange<float>(Params::drive_Min, Params::drive_Max, Params::drive_StepSize, Params::drive_Skew),
-     Params::drive_Default,
-     Params::drive_Suffix));
+ Step 4: Prepare in prepareToPlay()
+ exampleSmooth.reset(sampleRate, samplesPerBlock, &apvts, Params::example_ID);
  
- Step 4A: Initialize in prepareToPlay() (if it is a continuous parameter)
- driveSmooth.reset(sampleRate, 0.05);
- driveSmooth.setCurrentAndTargetValue(apvts.getRawParameterValue(Params::drive_ID)->load());
+ Step 5: Update in processBlock() with getNextValue()
+ should be done ONCE PER BLOCK for discrete controls
+ should be done ONCE PER SAMPLE (or with a skip amount if anything else)
+ (you can use getCurrentValue() after you've called getNextValue())
  
- Step 4B: Get pointer for fast access in PluginProcessor.cpp constructor
- driveParam = apvts.getRawParameterValue(Params::drive_ID);
- 
- Step 5: Update in processBlock() (if it is a smoothed parameter)
- driveSmooth.setTargetValue(apvts.getRawParameterValue(Params::drive_ID)->load());
- 
- Step 6: Use in audio loop
- - If smoothed:
-     float drive = driveSmooth.getNextValue();
- - If it's a discrete control value
-     float drive = driveParam->load();
+ Step 6: Use in audio loop!
  =================================================================================================================
 */
 
@@ -472,10 +376,9 @@ void YourPluginAudioProcessor::setStateInformation (const void* data, int sizeIn
  HOW TO REMOVE A PARAMETER
  
  1.  Delete from Params struct in PluginProcessor.h
- 2.  Delete smoother or pointer from PluginProcessor.h
+ 2.  Delete param from PluginProcessor.h
  3.  Delete from createParameterLayout() in PluginProcessor.cpp
- 4A. Delete from constructor (if using pointer)
- 4B. Delete from prepareToPlay() (if smoothed)
+ 4.  Delete from prepareToPlay()
  5.  Delete from processBlock()
  =================================================================================================================
 */
