@@ -2,4 +2,6 @@
 
 ## Resources
 
-Here are some resources!
+Pete Goodlife - The Golden Rules of Audio Programming
+
+- [ADC16 YouTube](https://www.youtube.com/watch?v=SJXGSJ6Zoro)
