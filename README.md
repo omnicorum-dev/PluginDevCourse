@@ -68,7 +68,7 @@ Learn how to synthesize the basic shapes digitally, and how to prevent aliasing.
 
 **[E11 - MIDI:](/Episodes/E11-MIDI/)**
 Learn how to use MIDI input from the host. Use it to control the
-pitch of an oscillator, and learn about monophony vs. ployphony
+pitch of an oscillator, and learn about monophony vs. ployphony.
 
 **[E12 - Envelopes:](/Episodes/E12-Envelopes/)**
 Learn about generating ADSR modulation signals, and apply them to

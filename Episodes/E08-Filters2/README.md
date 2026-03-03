@@ -1,5 +1,8 @@
 # Episode 08 - Biquad
 
+Implement the Robert Bristow-Johnson Filter algorithms, as well as how to adapt
+them into higher order filters.
+
 ## Classes
 
 - Completed [Biquad.h](/Templates_Materials/Classes/Biquad.h)

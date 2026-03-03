@@ -1,5 +1,8 @@
 # Episode 01 - Introduction
 
+Learn how to start a new JUCE project and build your first working plugin:
+a simple hard-clipper!
+
 ## Plugins
 
 - [pdcHardClipV1](/Templates_Materials/Plugins/pdcHardClipV1)
