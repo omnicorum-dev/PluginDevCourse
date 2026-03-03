@@ -16,10 +16,10 @@ knowledge is needed in advance**.
 
 ## Templates
 
-[JUCE_Startup.cpp](/Templates_Materials/JUCE_Startup.cpp) contains instructions
+[`JUCE_Startup.cpp`](/Templates_Materials/JUCE_Startup.cpp) contains instructions
 for quickly starting a new project.
 
-[Basics.h](/Templates_Materials/Basics.h) and [ParameterLayout.h](/Templates_Materials/ParameterLayout.h)
+[`Basics.h`](/Templates_Materials/Basics.h) and [`ParameterLayout.h`](/Templates_Materials/ParameterLayout.h)
 should be copied and added to the `Source` folder in the Projucer.
 
 Detailed instructions are in Episode 1.
