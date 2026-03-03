@@ -1,15 +1,16 @@
 # Intro to Plugin Development Course
 
 In this course, you will learn how to get started **making
-your own real-time audio plugins**! For the purpose of ease,
-we will be using the JUCE framework, but the course has
+your own real-time audio plugins**! To make the development
+process more straightforward,
+we will be using the JUCE framework. However, the course has
 been designed to teach concepts in a way that can be
 *transferred to any platform*. By the end of the first semester,
 which covers twelve episodes and culminates in a midterm project,
 you will have enough knowledge to create a basic synthesizer
 with a small collection of effects!
 
-The course expects you are *familiar* with basic C++ syntax and
+The course expects you to be *familiar* with basic C++ syntax and
 concepts before beginning, but **no digital signal processing
 knowledge is needed in advance**.
 
