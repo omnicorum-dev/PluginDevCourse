@@ -106,7 +106,7 @@ public:
                  int _blockSize,
                  juce::AudioProcessorValueTreeState* _apvts,
                  const char* _ID,
-                 double _smoothRate = 0.05) {
+                 double _smoothRate = 0.1) {
         smoothRate = _smoothRate;
         ID = _ID;
         apvts = _apvts;
@@ -130,7 +130,7 @@ public:
     }
     
     bool changed() {
-        return std::abs(rawValue - prevValue) < 0.00001f;
+        return std::abs(rawValue - prevValue) > 0.001f;
     }
     
     float getRawAndUpdate() {
@@ -142,8 +142,11 @@ public:
     
     void update() {
         prevValue = rawValue;
-        rawValue = apvts->getRawParameterValue(ID)->load();
-        smoothValue.setTargetValue(rawValue);
+        float newRaw = apvts->getRawParameterValue(ID)->load();
+        if (newRaw != rawValue) {
+            rawValue = newRaw;
+            smoothValue.setTargetValue(rawValue);
+        }
     }
     
     float getNextValue(int skip = 0) {
@@ -165,9 +168,11 @@ private:
     float rawValue;
     float prevValue;
     double fs;
-    double smoothRate = 0.05;
+    double smoothRate = 1;
     int blockSize;
 };
+
+
 
 class pdcBool {
 public:

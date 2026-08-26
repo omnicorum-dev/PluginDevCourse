@@ -2,7 +2,7 @@
   ==============================================================================
 
     Distortion.h
-    Created: 23 Feb 2026 10:51:50am
+    Created: 11 Mar 2026 1:11:00pm
     Author:  Nico Russo
 
   ==============================================================================
@@ -10,159 +10,111 @@
 
 #pragma once
 #include "Basics.h"
+#include "MonoEffect.h"
 
-class Distortion {
+class Distortion : public MonoEffect {
 public:
-    Distortion() {
-        reset();
-    }
-    virtual ~Distortion() = default;
+    virtual float distortion(float xn) = 0;
     
-    virtual float processSample(float xn) = 0;
-    
-    void processBlock(float* buffer, int numSamples) {
-        for (int i = 0; i < numSamples; ++i)
-            buffer[i] = processSample(buffer[i]);
-    }
-    
-    virtual void reset() {
-        prevInput = 0.f;
-        prevOutput = 0.f;
-        hysteresisInputDirection = 0;
-        hysteresisOutputDirection = 0;
-    }
+    float processSample(float xn) override {
+        return distortion(applyDriveBias(xn));
+    };
     
     void setDrive (float _driveMag) { driveMag = _driveMag; }
-    void setBias  (float _bias)     { bias     = _bias;  }
-    
-    void updateHysteresis(float xn, float yn) {
-        hysteresisInputDirection  = basics::sign(prevInput  - xn);
-        hysteresisOutputDirection = basics::sign(prevOutput - yn);
-        prevInput  = xn;
-        prevOutput = yn;
-    }
+    void setBias  (float _bias)     { bias     = _bias; }
     
 protected:
     float applyDriveBias(float xn) {
-        return xn*driveMag + bias;
+        return xn * driveMag + bias;
     }
-    
-    float prevInput  = 0.f;
-    float prevOutput = 0.f;
-    
-    int   hysteresisInputDirection  = 0;
-    int   hysteresisOutputDirection = 0;
     
     float driveMag = 1.f;
     float bias     = 0.f;
-    
-};
-
-class DistortionADAA : public Distortion {
-public:
-    virtual double F0 (float xn) = 0;
-    virtual double F1 (float xn) = 0;
-    
-    float processSample(float xn) override {
-        float wn    = applyDriveBias(xn);
-        double f1_wn = F1(wn);
-        double delta = wn - prevInput;
-
-        double yn = (std::abs(delta) < 0.00001f)
-                 ? F0(wn)
-                 : (f1_wn - prevF1) / delta;
-
-        prevInput = wn;
-        prevF1    = f1_wn;
-        return yn;
-    }
-    
-    void reset() override {
-        prevInput = 0.f;
-        prevOutput = 0.f;
-        hysteresisInputDirection = 0;
-        hysteresisOutputDirection = 0;
-        prevF1 = 0.f;
-    }
-protected:
-    float prevF1 = 0.f;
 };
 
 
 
 
-
-
-
-class DriveBias : public Distortion {
-public:
-    float processSample(float xn) override {
-        return applyDriveBias(xn);
-    }
-};
 
 class RectifierFull : public Distortion {
 public:
-    float processSample(float xn) override {
-        float yn;
-        float wn = applyDriveBias(xn);
-        
-        if (wn < 0.f) { yn = -wn; }
-        else { yn = wn; }
-        
-        return yn;
+    float distortion(float xn) override {
+        if (xn < 0.f) { return -xn; }
+        return xn;
     }
 };
 
 class RectifierHalf : public Distortion {
 public:
-    float processSample(float xn) override {
-        float yn;
-        float wn = applyDriveBias(xn);
-        
-        if (wn < 0.f) { yn = 0.f; }
-        else { yn = wn; }
-        
-        return yn;
+    float distortion(float xn) override {
+        if (xn < 0.f) { return 0.f; }
+        return xn;
     }
 };
 
 class HardClip : public Distortion {
 public:
-    float processSample(float xn) override {
-        float yn;
-        yn = applyDriveBias(xn);
-        
-        if      (yn >  1.0f)  { yn = 1.0f;  }
-        else if (yn < -1.0f)  { yn = -1.0f; }
-        
-        return yn;
+    float distortion(float xn) override {
+        if (xn > 1.f)  { return 1.f;  }
+        if (xn < -1.f) { return -1.f; }
+        return xn;
     }
 };
 
 class TanhShaper : public Distortion {
 public:
-    float processSample(float xn) override {
-        float yn;
-        yn = applyDriveBias(xn);
-        
-        yn = std::tanh(yn * shape);
-        
-        return yn;
+    float distortion(float xn) override {
+        return std::tanh(xn);
     }
-    
-    void setShape(double _shape) {
-        shape = _shape;
-    }
-    
-protected:
-    double shape = 1.0;
 };
+
+
+class SoftClipper : public Distortion {
+public:
+    void setThreshold_linear(double threshold) {
+        threshold_linear = threshold;
+    }
+    
+    void setThreshold_dB(double threshold) {
+        threshold_linear = basics::db2mag(threshold);
+    }
+    
+    void setKnee_dB(double knee) {
+        knee_linear = std::min((2*threshold_linear),
+                               (1.0 / basics::db2mag(knee)) - 1.0);
+        halfKnee = 0.5 * knee_linear;
+    }
+    
+    void setKnee_linear(double knee) {
+        knee_linear = std::min(2*threshold_linear, knee);
+        halfKnee = 0.5 * knee_linear;
+    }
+    
+    float distortion (float xn) override {
+        float abs = std::fabs(xn);
+        int sign = xn >= 0 ? 1 : -1;
+        
+        if (abs <= threshold_linear - halfKnee) {
+            return xn;
+        } else if (abs <= threshold_linear + halfKnee) {
+            float excess = abs - (threshold_linear - halfKnee);
+            return sign * (abs - (excess * excess) / (2 * knee_linear));
+        } else {
+            return sign * threshold_linear;
+        }
+    }
+    
+private:
+    double threshold_linear;
+    double knee_linear;
+    double halfKnee;
+};
+
 
 class Omni427 : public Distortion {
 public:
-    float processSample (float xn) override {
-        float yn = applyDriveBias(xn);
+    float distortion (float xn) override {
+        float yn = xn;
         double crossover = shape / (shape - 1);
         double n = shape;
         
@@ -185,38 +137,4 @@ public:
     
 protected:
     double shape = 2.0;
-};
-
-
-
-
-
-class TanhADAA : public DistortionADAA {
-public:
-    double F0 (float xn) override {
-        return std::tanh(xn);
-    }
-    
-    double F1 (float xn) override {
-        double ax = std::abs(xn);
-        return ax + std::log(0.5f + 0.5f * std::exp(-2.0f * ax));
-    }
-};
-
-class HardClipADAA : public DistortionADAA {
-    public:
-    double F0 (float xn) override {
-        if      (xn >  1.0f)  { return 1.0;  }
-        else if (xn < -1.0f)  { return -1.0; }
-        return xn;
-    }
-    
-    double F1 (float xn) override {
-        double yn;
-        
-        if (xn <= 1.0f && xn >= -1.0f) { yn = 0.5 * xn * xn; }
-        else { yn = xn * basics::sign(xn) - 0.5; }
-        
-        return yn;
-    }
 };

@@ -2,15 +2,15 @@
   ==============================================================================
 
     Biquad.h
-    Created: 21 Feb 2026 9:14:54pm
+    Created: 11 Mar 2026 1:11:12pm
     Author:  Nico Russo
 
   ==============================================================================
 */
 
 #pragma once
-
 #include "Basics.h"
+#include "MonoEffect.h"
 
 enum class FilterType {
     LOWPASS = 0,
@@ -23,28 +23,19 @@ enum class FilterType {
     ALLPASS
 };
 
-class Biquad {
+class Biquad : public MonoEffect {
 public:
-    virtual ~Biquad() = default;
-    
-    virtual void updateCoeffs() = 0;
+    virtual void updateCoeffs() {};
     
     Biquad() { reset(); }
     
-    void prepare(float sampleRate, int blockSize) {
-        fs = sampleRate;
-        this->blockSize = blockSize;
-        reset();
-        updateCoeffs();
-    }
-    
     void reset() {
         f0 = 1000.0f;
-        Q = 0.707f;
+        Q = 0.7071f;
         A = 1.0f;
         w0 = 0; a = 0; a0 = 0; a1 = 0; a2 = 0;
         b0 = 1; b1 = 0; b2 = 0;
-        wn = 0; wnm1 = 0; wnm2 = 0;
+        xnm1 = 0; xnm2 = 0; ynm1 = 0; ynm2 = 0;
     }
     
     void setFreq(float newFreq) {
@@ -64,21 +55,20 @@ public:
         updateCoeffs();
     }
     
-    float processSample(float xn) {
-        wn = (1/b0) * (xn - (b1*wnm1) - (b2*wnm2));
-        float yn = (a0*wn) + (a1*wnm1) + (a2*wnm2);
-        
-        wnm2 = wnm1;
-        wnm1 = wn;
-        
+    float processSample(float xn) override {
+        float yn = (a0/b0)*xn + (a1/b0)*xnm1 + (a2/b0)*xnm2
+                              - (b1/b0)*ynm1 - (b2/b0)*ynm2;
+        xnm2 = xnm1;
+        xnm1 = xn;
+        ynm2 = ynm1;
+        ynm1 = yn;
         return yn;
     }
     
 protected:
-    float fs, f0, Q, A;
+    float f0, Q, A;
     float w0, a, a0, a1, a2, b0, b1, b2;
-    float wn, wnm1, wnm2;
-    int blockSize;
+    float xnm1, xnm2, ynm1, ynm2;
 };
 
 class RBJ : public Biquad {
@@ -173,41 +163,34 @@ private:
     FilterType filterType = FilterType::LOWPASS;
 };
 
-class LWR : public Biquad {
+
+
+class LR4 : public MonoEffect {
 public:
-    void setFilterType(FilterType newFilterType) {
-        filterType = newFilterType;
-        updateCoeffs();
+    
+    void prepare(float sampleRate, int blockSize) override {
+        stage1.prepare(sampleRate, blockSize);
+        stage2.prepare(sampleRate, blockSize);
+        
+        stage1.setQ(0.7071);
+        stage2.setQ(0.7071);
     }
     
-    void updateCoeffs() override {
-        double omega_c = M_PI * f0;
-        double omega_c2 = omega_c*omega_c;
-        double theta_c = omega_c / fs;
-        double k = omega_c / tan(theta_c);
-        double k2 = k*k;
-        double delta = k2 + omega_c2 + (2*k*omega_c);
-        
-        switch (filterType) {
-            case FilterType::LOWPASS:
-                a0 = omega_c2/delta;
-                a1 = 2 * a0;
-                a2 = a0;
-                b1 = (-2*k2 + 2*omega_c2) / delta;
-                b2 = (-2*k*omega_c + k2 + omega_c2) / delta;
-                break;
-            case FilterType::HIGHPASS:
-                a0 = k2/delta;
-                a1 = -2 * a0;
-                a2 = a0;
-                b1 = (-2*k2 + 2*omega_c2) / delta;
-                b2 = (-2*k*omega_c + k2 + omega_c2) / delta;
-                break;
-            default:
-                reset();
-                break;
-        };
+    void setFilterType(FilterType newFilterType) {
+        stage1.setFilterType(newFilterType);
+        stage2.setFilterType(newFilterType);
     }
+    
+    void setFreq(float newFreq) {
+        stage1.setFreq(newFreq);
+        stage2.setFreq(newFreq);
+    }
+    
+    float processSample(float xn) override {
+        float wn = stage1.processSample(xn);
+        return stage2.processSample(wn);
+    }
+
 private:
-    FilterType filterType;
+    RBJ stage1, stage2;
 };

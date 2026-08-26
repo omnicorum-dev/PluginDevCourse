@@ -28,6 +28,8 @@
 // Add any #include's here above the class
 #include "Basics.h"
 #include "ParameterLayout.h"
+#include "MonoEffect.h"
+
 
 public:
     // APVTS for automation/presets/state
