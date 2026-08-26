@@ -1,3 +1,5 @@
+THIS COURSE IS A WORK IN PROGRESS. SEMESTER 1 WILL BE COMPLETED BY MAY 2027
+
 # Intro to Plugin Development Course
 
 In this course, you will learn how to get started **making
