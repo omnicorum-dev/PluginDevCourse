@@ -23,6 +23,7 @@ enum class FilterType {
     ALLPASS
 };
 
+// generic biquad class
 class Biquad : public MonoEffect {
 public:
     virtual void updateCoeffs() {};
@@ -71,6 +72,7 @@ protected:
     float xnm1, xnm2, ynm1, ynm2;
 };
 
+// Robert Bristow-Johnson EQ-Cookbook filters
 class RBJ : public Biquad {
 public:
     void setFilterType(FilterType newFilterType) {
@@ -164,7 +166,7 @@ private:
 };
 
 
-
+// 4-Pole Linkwitz-Riley filter. Look it up if you're curious
 class LR4 : public MonoEffect {
 public:
     

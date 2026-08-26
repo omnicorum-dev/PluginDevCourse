@@ -11,6 +11,8 @@
 #pragma once
 #include "Basics.h"
 
+// A MonoEffect is an effect that applies to only one channel of audio
+// It's a pretty thin base class that makes things like 'effect chains' possible
 class MonoEffect {
 public:
     virtual ~MonoEffect() = default;
