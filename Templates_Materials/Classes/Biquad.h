@@ -56,6 +56,9 @@ public:
         updateCoeffs();
     }
     
+    // I've flipped a's and b's from the traditional definitions 
+    //       here because of the book I learned from.
+    // Sorry for the confusion.
     float processSample(float xn) override {
         float yn = (a0/b0)*xn + (a1/b0)*xnm1 + (a2/b0)*xnm2
                               - (b1/b0)*ynm1 - (b2/b0)*ynm2;
