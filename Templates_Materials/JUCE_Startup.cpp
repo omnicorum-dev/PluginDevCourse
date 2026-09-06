@@ -28,7 +28,6 @@
 // Add any #include's here above the class
 #include "Basics.h"
 #include "ParameterLayout.h"
-#include "MonoEffect.h"
 
 
 public:
@@ -289,31 +288,28 @@ void YourPluginAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, j
     // Process audio
     // =============================================================================
     
-    for (int channel = 0; channel < totalNumInputChannels; ++channel)
-    {
-        auto* channelData = buffer.getWritePointer(channel);
-        
-        for (int sample = 0; sample < numSamples; ++sample)
-        {
-            float dry     = channelData[sample];
-            float inGain  = std::pow(10.0f, inGainSmooth.getNextValue() / 20.f);
-            float outGain = std::pow(10.0f, outGainSmooth.getNextValue() / 20.f);
-            float mix     = mixSmooth.getNextValue();
-            
-            float xn = dry * inGain;
-            
-            //==============================================================================
-            // SAMPLE-BY-SAMPLE DSP GOES HERE
-            //==============================================================================
-            
-            float yn = xn;
-            
-            //==============================================================================
-            // MAKE SURE yn IS SET TO THE OUTPUT SAMPLE AT THIS POINT
-            //==============================================================================
-            
-            float mixed = (yn*mix*0.01)+(dry*(100-mix)*0.01);
-            
+    constexpr int maxChannels = 8;
+    auto numChannels = totalNumInputChannels;
+
+    std::array<float*, maxChannels> channelPtrs;
+    for (int channel = 0; channel < numChannels; ++channel)
+        channelPtrs[channel] = buffer.getWritePointer(channel);
+
+    for (int sample = 0; sample < numSamples; ++sample){
+        float inGain  = std::pow(10.0f, inGainSmooth.getNextValue() / 20.f);
+        float outGain = std::pow(10.0f, outGainSmooth.getNextValue() / 20.f);
+        float mix     = mixSmooth.getNextValue();
+
+        // Update objects for continuous changes here
+
+        for (int channel = 0; channel < numChannels; ++channel) {
+            float* channelData = channelPtrs[channel];
+            float dry = channelData[sample];
+            float xn  = dry * inGain;
+
+            float yn = xn; // your per-channel DSP object goes here, e.g. filters[channel].processSample(xn)
+
+            float mixed = (yn * mix * 0.01f) + (dry * (100.0f - mix) * 0.01f);
             channelData[sample] = mixed * outGain;
         }
     }

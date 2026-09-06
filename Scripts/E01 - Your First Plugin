@@ -1,0 +1,135 @@
+# Episode 01 - Your First Plugin
+
+Hello! and welcome to the introduction to audio software development!
+In this episode, you're going to build your first complete plugin:
+a hard-clipper!
+
+{Title Card}
+
+## Course Materials
+
+Before we get started, let's download the materials we need for the
+course.
+
+If you click the link in the description of this video, it will take
+you to the companion GitHub repository. Don't worry if you're not
+familiar with GitHub. I'll show you exactly what you need to do to
+get all the goods.
+
+Click on the green Code button, and download the ZIP. This will
+download all of the course materials as a ZIP folder. Open your
+downloads folder, and extract the zip. You can do this on Mac by
+just double clicking it. Move this folder to a safe location.
+We're going to be using it a lot!
+
+## Downloading JUCE
+
+Back in the companion repo, if you scroll down to the Episodes
+section, you'll see a brief description of each episode. And
+if you click on the name of one of them, you'll see a page
+with links to resources used in the episode, or places that
+you can go to develop your knowledge further if a topic is of
+interest to you.
+
+In the Episode 1 page, click on the JUCE website link to be taken
+to the JUCE homepage. Clock on the "Get JUCE" button to be taken
+to the download page. Click the download button under the free plan.
+Then, simply click on your operating system to download JUCE!
+Like with the course materials, drag the JUCE folder into your
+development location.
+
+## Creating a JUCE Project
+
+Now it's finally time to start creating our first plugin.
+
+Open the JUCE folder and double click the Projucer. If it comes up
+with a warning, press Open Anyway. 
+
+We're building a basic plugin, so let's give it a name. I'll call it
+asdHardClip. There should be no spaces in the project name! Under
+exporters, make sure XCode is selected if you are on Mac, or 
+Visual Studio is selected if you are on Windows. If you're on Linux,
+you figure it out you probably know what you're doing. There are other
+methods of building JUCE plugins, but if you're just getting started,
+these are by far the easiest. Leave the modules how they are, and
+let's create the project!
+
+Navigate to your development folder and create a new folder for all
+the plugins you're going to be making. Open it, and save your project
+there.
+
+Let's configure our plugin a bit before we write some code. Click the
+pink cog wheel to bring up the plugin settings. There are a few important
+ones, so let's go through them.
+
+1. Project Version: for now, set it to 0.0.0. As you keep working on your
+plugin and make new releases, increment this version number.
+2. Company Name & Copyright: Obviously this is for copyright. Put your name
+and the year here.
+3. Plugin Formats: xxxxx
+4. Plugin Characteristics: xxxxx
+5. Name: This is the name of the plugin that will be displayed in the DAW.
+6. Description: A brief description of what your plugin does.
+7. Manufacturer & Manufacturer Code: Some DAWs categorize plugins by
+manufacturer. These fields tell the DAW what category to put them in.
+8. Plugin Code: A unique identifier for your plugin. No two plugins
+from the same manufacturer can have the same plugin code.
+9. AUType & VST3/AAX Category
+
+Now that we've configured our project, go to the course materials
+folder and open the Templates and Materials folder. Open the
+JUCE_Startup file for the future, and copy the two .h files.
+Navigate to your project folder and paste the .h files into source.
+
+Back in the Projucer, if you click on the file explorer, those
+files we just added aren't showing up yet! We can add them by
+selecting the source folder, clicking the pink plus icon, and
+choosing "Add existing files." Select the files we just added and
+press open.
+
+Perfect! Now that all our files are in place, we can open XCode
+by clicking on its logo here.
+
+## Using the Template
+
+Now, the default code that JUCE gives you is pretty awful
+to start with in my opinion, so I've made some starter code to
+get us started much quicker.
+
+I have the template open on the right and our project on the left.
+There are directions in the comments of the template, but let's 
+walk through them real quick to make sure we get it right.
+
+1. **Snippet 1:** In PluginProcessor.h, copy the two `#include`
+lines to the top of the file with the other `#include`s. Then,
+take the rest *excluding* the public text, and paste it at the
+bottom of the existing public section.
+
+2. **Snippet 2:** In PluginProcessor.cpp, at the top where the
+constructor is, add a comma after this closing parenthesis, and
+copy this apvts line after the last `#endif`.
+
+3. **Snippet 3:** Take the entire thing and paste it below
+the destructor. Then change where it says `YourPlugin` to have
+the name of your plugin, matching the prefix of all the other
+functions.
+
+4. **Snippet 4:** Take just the inner contents of the
+`prepareToPlay` function and paste them into the `prepareToPlay`
+in your project.
+
+5. **Snippet 5:** Do the same as snippet 4, but with the
+`processBlock` function. Replace the contents only with the
+template.
+
+6. **Snippet 6:** Replace the contents only of the
+`getStateInformation` and `setStateInformation` functions.
+In the `createEditor` function, comment out the existing line
+and add the line in the template under it.
+
+I know that was a lot, but that's the template. Unfortunately,
+you'll have to do that at the start of every plugin you make.
+However, you'll get faster at it over time, and it's still
+far, FAR faster than setting all that up manually.
+
+Finally, we can get to writing our little hard clipper.

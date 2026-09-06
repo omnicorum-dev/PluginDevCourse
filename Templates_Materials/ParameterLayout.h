@@ -106,7 +106,7 @@ public:
                  int _blockSize,
                  juce::AudioProcessorValueTreeState* _apvts,
                  const char* _ID,
-                 double _smoothRate = 0.1) {
+                 double _smoothRate = 0.02) {
         smoothRate = _smoothRate;
         ID = _ID;
         apvts = _apvts;
@@ -168,7 +168,7 @@ private:
     float rawValue;
     float prevValue;
     double fs;
-    double smoothRate = 1;
+    double smoothRate;
     int blockSize;
 };
 
