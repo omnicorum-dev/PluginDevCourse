@@ -1,6 +1,6 @@
 #pragma once
 
-#include "new_biquad.h"
+#include "biquad.h"
 #include <cmath>
 
 enum class FilterType {
