@@ -3,6 +3,10 @@
 Learn how to use MIDI input from the host. Use it to control the
 pitch of an oscillator, and learn about monophony vs. ployphony.
 
+## Classes
+
+- [midi_cursor.h](/Templates_Materials/Classes/midi_cursor.h)
+
 ## Resources
 
 MIDI 1.1 Spec
