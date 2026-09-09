@@ -43,11 +43,11 @@ development location.
 Now it's finally time to start creating our first plugin.
 
 Open the JUCE folder and double click the Projucer. If it comes up
-with a warning, press Open Anyway. 
+with a warning, press Open Anyway.
 
 We're building a basic plugin, so let's give it a name. I'll call it
 asdHardClip. There should be no spaces in the project name! Under
-exporters, make sure XCode is selected if you are on Mac, or 
+exporters, make sure XCode is selected if you are on Mac, or
 Visual Studio is selected if you are on Windows. If you're on Linux,
 you figure it out you probably know what you're doing. There are other
 methods of building JUCE plugins, but if you're just getting started,
@@ -64,17 +64,32 @@ ones, so let's go through them.
 
 1. Project Version: for now, set it to 0.0.0. As you keep working on your
 plugin and make new releases, increment this version number.
+
 2. Company Name & Copyright: Obviously this is for copyright. Put your name
 and the year here.
-3. Plugin Formats: xxxxx
-4. Plugin Characteristics: xxxxx
+
+3. Plugin Formats: These are the plugin formats that JUCE will attempt
+to build for when you compile your plugin. I recommend choosing just VST3
+and AU. Pick AAX if you want to build specifically for ProTools. I recommend
+deselecting Standalone, as I don't find it very convenient to work with.
+
+4. Plugin Characteristics: Plugins are effects by default. If you instead
+want your plugin to be a synth, you can indicate that here. If your plugin
+supports MIDI Input and/or Output, that also must be indicated here.
+
 5. Name: This is the name of the plugin that will be displayed in the DAW.
+
 6. Description: A brief description of what your plugin does.
+
 7. Manufacturer & Manufacturer Code: Some DAWs categorize plugins by
 manufacturer. These fields tell the DAW what category to put them in.
+
 8. Plugin Code: A unique identifier for your plugin. No two plugins
 from the same manufacturer can have the same plugin code.
-9. AUType & VST3/AAX Category
+
+9. AUType & VST3/AAX Category: Some DAWs, in addition to categorizing plugins
+by manufacturer, offer the ability to categorize by type. You can indicate
+what kind of plugin yours is here so it gets categorized correctly.
 
 Now that we've configured our project, go to the course materials
 folder and open the Templates and Materials folder. Open the
@@ -97,7 +112,7 @@ to start with in my opinion, so I've made some starter code to
 get us started much quicker.
 
 I have the template open on the right and our project on the left.
-There are directions in the comments of the template, but let's 
+There are directions in the comments of the template, but let's
 walk through them real quick to make sure we get it right.
 
 1. **Snippet 1:** In PluginProcessor.h, copy the two `#include`
@@ -132,4 +147,27 @@ you'll have to do that at the start of every plugin you make.
 However, you'll get faster at it over time, and it's still
 far, FAR faster than setting all that up manually.
 
-Finally, we can get to writing our little hard clipper.
+Finally, we can get to writing our hard clipper.
+
+## Making the Clipper
+
+All audio processing lives in the aptly named `processBlock`
+function. The template has a lot of stuff that we'll cover in
+episodes 3 and 4, but for now, let's go to the line that says
+"your per-channel DSP object goes here." As the comment says,
+let's put our clipping algorithm here!
+
+I'll get into this more later, but the sample that we're currently
+processing is referred to as xn, and the processed output sample
+is referred to as yn. A hard-clipper is an incredibly easy process.
+All you need to do is clamp the input to plus or minus one.
+
+So, let's replace the line with
+
+```c++
+float yn = std::clamp(xn, -1.0f, 1.0f);
+```
+
+That's it! In a coming episode, I'll show you how to make parameters
+that are shown in the DAW to control that -1 to +1 threshold, but
+for now, let's get our plugin built and running in our DAW.
