@@ -38,9 +38,14 @@ class Oscillator {
 
     void setPhaseOffset(double offset) { phase_offset = offset; }
 
-    double processSample() {
-        double sample = generateSample(phase);
-        advancePhase();
+    double processSample(double phase_mod = 0.0, double frequency_mod = 0.0) {
+        double sample = generateSample(phase + phase_mod);
+
+        phase += frequency_mod == 0.0 ? phase_increment
+                                      : (frequency + frequency_mod) / fs;
+
+        phase -= std::floor(phase);
+
         return applyPolarity(sample);
     }
 
