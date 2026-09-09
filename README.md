@@ -80,6 +80,25 @@ our basic synthesizer.
 Build a synthesizer plugin! A detailed description can be found in
 the episode folder.
 
+## Licensing
+
+### Course Materials
+
+Unless otherwise specified, all course videos, lessons, slides, graphics,
+documentation, and other educational materials are © 2026 Nicolas Russo and
+are **All Rights Reserved**. They may not be copied, redistributed, resold,
+publicly posted, or commercially reused without prior written authorization.
+
+### Source Code
+
+Source code contained in this repository that is authored by Nicolas Russo is
+licensed under the **MIT License**, unless otherwise specified.
+
+### Third-Party Materials
+
+Third-Party libraries, dependencies, and resources are subject to their
+respective licenses
+
 ## References
 
 1. S. Freeman, S.L. Eddy, M. McDonough, M.K. Smith,
