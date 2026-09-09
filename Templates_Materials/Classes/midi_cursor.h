@@ -1,10 +1,12 @@
 /*
   ==============================================================================
-
     midi_cursor.h
-    Created: 8 Sep 2026 3:58:38pm
-    Author:  Nico Russo
 
+    Part of the Intro to Plugin Development Course
+    https://github.com/omnicorum-dev/PluginDevCourse
+
+    Copyright (c) 2026 Nicolas Russo
+    SPDX-License-Identifier: MIT
   ==============================================================================
 */
 

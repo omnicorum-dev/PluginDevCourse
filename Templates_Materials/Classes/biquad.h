@@ -1,3 +1,15 @@
+/*
+  ==============================================================================
+    biquad.h - Virtual class for a traditional biquad IIR filter.
+
+    Part of the Intro to Plugin Development Course
+    https://github.com/omnicorum-dev/PluginDevCourse
+
+    Copyright (c) 2026 Nicolas Russo
+    SPDX-License-Identifier: MIT
+  ==============================================================================
+*/
+
 #pragma once
 
 class Biquad {

@@ -1,3 +1,15 @@
+/*
+  ==============================================================================
+    distortion.h - Suite of common distoriton types.
+
+    Part of the Intro to Plugin Development Course
+    https://github.com/omnicorum-dev/PluginDevCourse
+
+    Copyright (c) 2026 Nicolas Russo
+    SPDX-License-Identifier: MIT
+  ==============================================================================
+*/
+
 #pragma once
 
 #include "filter.h"
@@ -27,6 +39,8 @@ class Distortion {
 
     DCBlocker dc_block;
 };
+
+/* ======================================================== */
 
 class RectifierFull : public Distortion {
   public:

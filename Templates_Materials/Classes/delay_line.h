@@ -1,3 +1,15 @@
+/*
+  ==============================================================================
+    delay_line.h - Basic linear-interpolation delay line.
+
+    Part of the Intro to Plugin Development Course
+    https://github.com/omnicorum-dev/PluginDevCourse
+
+    Copyright (c) 2026 Nicolas Russo
+    SPDX-License-Identifier: MIT
+  ==============================================================================
+*/
+
 #pragma once
 
 #include "ring_buffer.h"
