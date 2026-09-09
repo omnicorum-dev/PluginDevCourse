@@ -82,7 +82,7 @@ class Oscillator {
     Polarity polarity = Polarity::BIPOLAR;
 
     double (*generatorFunction)(double) = [](double ph) {
-        return std::sin(ph * M_2_PI);
+        return std::sin(ph * 2 * M_PI);
     };
 
     float fs          = 0.f;
