@@ -5,7 +5,7 @@ a simple hard-clipper!
 
 ## Plugins
 
-- [pdcHardClipV1](/Templates_Materials/Plugins/pdcHardClipV1)
+- [asdHardClipV1](/Templates_Materials/Plugins/asdHardClipV1)
 
 ## Resources
 

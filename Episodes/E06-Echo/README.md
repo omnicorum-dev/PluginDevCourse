@@ -5,7 +5,7 @@ by creating a basic Echo delay plugin.
 
 ## Plugins
 
-- TODO [pdcEcho](/Templates_Materials/Plugins/pdcEcho)
+- TODO [asdEcho](/Templates_Materials/Plugins/asdEcho)
 
 ## Resources
 

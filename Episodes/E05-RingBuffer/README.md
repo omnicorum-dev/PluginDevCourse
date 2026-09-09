@@ -4,8 +4,8 @@ Learn how to create long-term delays through a circular buffer and delay line.
 
 ## Classes
 
-- [RingBuffer.h](/Templates_Materials/Classes/RingBuffer.h)
-- [DelayLine.h](/Templates_Materials/Classes/DelayLine.h)
+- [ring_buffer.h](/Templates_Materials/Classes/ring_buffer.h)
+- [delay_line.h](/Templates_Materials/Classes/delay_line.h)
 
 ## Resources
 

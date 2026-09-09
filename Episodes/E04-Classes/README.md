@@ -5,11 +5,11 @@ by porting our hard-clipper into a class.
 
 ## Classes
 
-- [HardClip.h](/Templates_Materials/Classes/HardClip.h)
+- [hard_clip.h](/Templates_Materials/Classes/hard_clip.h)
 
 ## Plugins
 
-- [pdcHardClipV2](/Templates_Materials/Plugins/pdcHardClipV2)
+- [asdHardClipV2](/Templates_Materials/Plugins/asdHardClipV2)
 
 ## Resources
 

@@ -5,12 +5,12 @@ them into higher order filters.
 
 ## Classes
 
-- Completed [Biquad.h](/Templates_Materials/Classes/Biquad.h)
-- TODO [HighOrderFilter.h](/Templates_Materials/Classes/HighOrderFilter.h)
+- Completed [biquad.h](/Templates_Materials/Classes/biquad.h)
+- TODO [high_order_filter.h](/Templates_Materials/Classes/high_order_filter.h)
 
 ## Plugins
 
-- TODO [pdcFilter](/Templates_Materials/Plugins/pdcFilter)
+- TODO [asdFilter](/Templates_Materials/Plugins/asdFilter)
 
 ## Challenge
 

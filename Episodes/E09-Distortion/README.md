@@ -5,11 +5,11 @@ Additionally, learn the basic concepts of oversampling.
 
 ## Classes
 
-- [Distortion.h](/Templates_Materials/Classes/Distortion.h)
+- [distortion.h](/Templates_Materials/Classes/distortion.h)
 
 ## Plugins
 
-- TODO [pdcDistortion](/Templates_Materials/Plugins/pdcDistortion)
+- TODO [asdDistortion](/Templates_Materials/Plugins/asdDistortion)
 
 ## Resources
 

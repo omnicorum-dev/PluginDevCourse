@@ -5,7 +5,7 @@ into code by implementing an abstract Biquad class.
 
 ## Classes
 
-- Beginning [Biquad.h](/Templates_Materials/Classes/Biquad.h)
+- Beginning [biquad.h](/Templates_Materials/Classes/biquad.h)
 
 ## Resources
 
