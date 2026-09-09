@@ -5,8 +5,7 @@ them into higher order filters.
 
 ## Classes
 
-- Completed [biquad.h](/Templates_Materials/Classes/biquad.h)
-- TODO [high_order_filter.h](/Templates_Materials/Classes/high_order_filter.h)
+- [filter.h](/Templates_Materials/Classes/filter.h)
 
 ## Plugins
 
