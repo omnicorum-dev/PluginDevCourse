@@ -9,7 +9,7 @@ Additionally, learn the basic concepts of oversampling.
 
 ## Plugins
 
-- TODO [asdDistortion](/Templates_Materials/Plugins/asdDistortion)
+- [asdDistortion](/Templates_Materials/Plugins/asdDistortion)
 
 ## Resources
 

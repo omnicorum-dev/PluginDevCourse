@@ -7,6 +7,10 @@ pitch of an oscillator, and learn about monophony vs. ployphony.
 
 - [midi_cursor.h](/Templates_Materials/Classes/midi_cursor.h)
 
+## Plugins
+
+- TODO: [asdMonoSynthV2](/Templates_Materials/Plugins/asdMonoSynthV2)
+
 ## Resources
 
 MIDI 1.1 Spec

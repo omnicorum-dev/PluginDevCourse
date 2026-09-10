@@ -9,7 +9,7 @@ our basic synthesizer.
 
 ## Plugins
 
-- TODO: [asdMonoSynth](/Templates_Materials/Plugins/asdMonoSynth)
+- TODO: [asdMonoSynthV3](/Templates_Materials/Plugins/asdMonoSynthV3)
 
 ## Resources
 

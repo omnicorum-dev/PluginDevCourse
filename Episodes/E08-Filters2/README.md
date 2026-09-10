@@ -9,7 +9,7 @@ them into higher order filters.
 
 ## Plugins
 
-- TODO [asdFilter](/Templates_Materials/Plugins/asdFilter)
+- [asdFilter](/Templates_Materials/Plugins/asdFilter)
 
 ## Challenge
 
