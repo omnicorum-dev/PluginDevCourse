@@ -2,6 +2,9 @@
 #include "juce_audio_basics/juce_audio_basics.h"
 #include "juce_audio_processors_headless/juce_audio_processors_headless.h"
 #include "juce_core/juce_core.h"
+#include "midi_cursor.h"
+#include "midi_message.h"
+#include "oscillator.h"
 
 /* ======================================================== */
 
@@ -55,6 +58,16 @@ APVTS::ParameterLayout Processor::createParameterLayout() {
              Params::mix_skew,
              Params::mix_suffix);
 
+    addFloat(layout,
+             Params::amp_ID,
+             Params::amp_name,
+             Params::amp_min,
+             Params::amp_max,
+             Params::amp_default,
+             Params::amp_stepSize,
+             Params::amp_skew,
+             Params::amp_suffix);
+
     addBool(
         layout, Params::bypass_ID, Params::bypass_name, Params::bypass_default);
 
@@ -70,10 +83,16 @@ void Processor::prepareToPlay(double sample_rate, int buffer_size) {
     inGainSmooth.prepare(sample_rate, buffer_size, &apvts, Params::inGain_ID);
     mixSmooth.prepare(sample_rate, buffer_size, &apvts, Params::mix_ID);
 
+    ampSmooth.prepare(sample_rate, buffer_size, &apvts, Params::amp_ID);
+
     bypassParam.prepare(sample_rate, buffer_size, &apvts, Params::bypass_ID);
 
     // Prepare any objects here
     // e.g. Delay.prepare(sample_rate);
+
+    for (Oscillator &osc : oscillator) {
+        osc.prepare((float)sample_rate, buffer_size);
+    }
 }
 
 void Processor::releaseResources() {}
@@ -104,13 +123,17 @@ void Processor::processBlock(juce::AudioBuffer<float> &buffer,
     inGainSmooth.update();
     mixSmooth.update();
 
+    ampSmooth.update();
+
     // Update objects for discrete changes
     // eg. if (filterTypeParam.changed()) filter.updateCoefficients();
 
     /* ======================================================== */
 
+    MidiCursor midi(messages);
+
     constexpr int max_channels = 8;
-    auto          num_channels = total_input_channels;
+    auto          num_channels = total_output_channels;
 
     std::array<float *, max_channels> channel_ptrs;
 
@@ -124,11 +147,41 @@ void Processor::processBlock(juce::AudioBuffer<float> &buffer,
 
     for (int sample = 0; sample < num_samples; ++sample) {
 
+        while (midi.hasEvent() && midi.event().samplePosition == sample) {
+            juce::MidiMessage message = midi.event().getMessage();
+
+            // apply changes for this sample based on the midi message received
+            // this sample
+
+            if (message.isNoteOn()) {
+                midiNote        = message.getNoteNumber();
+                midiNoteChanged = true;
+                isNoteOn        = true;
+
+                if (message.getVelocity() == 0) {
+                    isNoteOn = false;
+                }
+            }
+
+            if (message.isNoteOff() && message.getNoteNumber() == midiNote) {
+                isNoteOn = false;
+            }
+
+            midi.advance();
+        }
+
         float in_gain  = std::pow(10.f, inGainSmooth.getNextValue() / 20.f);
         float out_gain = std::pow(10.f, outGainSmooth.getNextValue() / 20.f);
         float mix      = mixSmooth.getNextValue();
 
+        float amp = ampSmooth.getNextValue();
+
         // Update objects for continuous changes here
+        if (midiNoteChanged) {
+            for (Oscillator &osc : oscillator)
+                osc.setFrequency(midiFrequencies[(size_t)midiNote]);
+            midiNoteChanged = false;
+        }
 
         for (int channel = 0; channel < num_channels; ++channel) {
             float *channel_data = channel_ptrs[(size_t)channel];
@@ -137,7 +190,10 @@ void Processor::processBlock(juce::AudioBuffer<float> &buffer,
 
             /* ======================================================== */
 
-            float yn = std::clamp(xn, -1.f, 1.f);
+            float yn = xn;
+            float osc =
+                amp * (float)oscillator[(size_t)channel].processSample();
+            yn += isNoteOn ? osc : 0.f;
 
             /* ======================================================== */
 
