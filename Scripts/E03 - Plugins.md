@@ -1,5 +1,7 @@
 # Episode 3 - Plugins and Best Practices
 
+Task: 20260911-162745
+
 ## Topics to cover
 
 - Buffers and buffer size

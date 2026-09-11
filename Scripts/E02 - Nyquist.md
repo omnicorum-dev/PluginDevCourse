@@ -1,5 +1,7 @@
 # Episode 2 - Nyquist and Basic Digital Audio Theory
 
+Task: 20260911-162737
+
 Topics to cover:
 
 - Analog vs. Digital Audio

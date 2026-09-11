@@ -1,5 +1,7 @@
 # Episode 0 - Introduction
 
+Task: 20260911-162609
+
 Hello! and welcome to the introduction to audio software development!
 In this episode 0, I'm going to give a brief overview of the course,
 as well as provide some justification for why I have designed it this
