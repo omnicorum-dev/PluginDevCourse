@@ -1,6 +1,6 @@
 # Apply envelope.h to asdMonoSynthV3
 
-- STATUS: OPEN
+- STATUS: CLOSED
 - PRIORITY: 100
 - TAGS: plugin, code
 

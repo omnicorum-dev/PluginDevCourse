@@ -1,0 +1,319 @@
+#include "processor.h"
+#include "envelope.h"
+#include "juce_audio_basics/juce_audio_basics.h"
+#include "juce_audio_processors_headless/juce_audio_processors_headless.h"
+#include "juce_core/juce_core.h"
+#include "midi_cursor.h"
+#include "midi_message.h"
+#include "oscillator.h"
+#include "parameter_layout.h"
+
+/* ======================================================== */
+
+Processor::Processor()
+    : juce::AudioProcessor(
+          BusesProperties()
+#if !JucePlugin_IsMidiEffect
+#if !JucePlugin_IsSynth
+              .withInput("Input", juce::AudioChannelSet::stereo(), true)
+#endif
+              .withOutput("Output", juce::AudioChannelSet::stereo(), true)
+#endif
+              ),
+      apvts(*this, nullptr, "Parameters", createParameterLayout()) {
+}
+
+Processor::~Processor() = default;
+
+/* ======================================================== */
+
+APVTS::ParameterLayout Processor::createParameterLayout() {
+    APVTS::ParameterLayout layout;
+
+    addFloat(layout,
+             Params::inGain_ID,
+             Params::inGain_name,
+             Params::inGain_min,
+             Params::inGain_max,
+             Params::inGain_default,
+             Params::inGain_stepSize,
+             Params::inGain_skew,
+             Params::inGain_suffix);
+
+    addFloat(layout,
+             Params::outGain_ID,
+             Params::outGain_name,
+             Params::outGain_min,
+             Params::outGain_max,
+             Params::outGain_default,
+             Params::outGain_stepSize,
+             Params::outGain_skew,
+             Params::outGain_suffix);
+
+    addFloat(layout,
+             Params::mix_ID,
+             Params::mix_name,
+             Params::mix_min,
+             Params::mix_max,
+             Params::mix_default,
+             Params::mix_stepSize,
+             Params::mix_skew,
+             Params::mix_suffix);
+
+    addFloat(layout,
+             Params::amp_ID,
+             Params::amp_name,
+             Params::amp_min,
+             Params::amp_max,
+             Params::amp_default,
+             Params::amp_stepSize,
+             Params::amp_skew,
+             Params::amp_suffix);
+
+    addFloat(layout,
+             Params::attack_ID,
+             Params::attack_name,
+             Params::attack_min,
+             Params::attack_max,
+             Params::attack_default,
+             Params::attack_stepSize,
+             Params::attack_skew,
+             Params::attack_suffix);
+
+    addFloat(layout,
+             Params::hold_ID,
+             Params::hold_name,
+             Params::hold_min,
+             Params::hold_max,
+             Params::hold_default,
+             Params::hold_stepSize,
+             Params::hold_skew,
+             Params::hold_suffix);
+
+    addFloat(layout,
+             Params::decay_ID,
+             Params::decay_name,
+             Params::decay_min,
+             Params::decay_max,
+             Params::decay_default,
+             Params::decay_stepSize,
+             Params::decay_skew,
+             Params::decay_suffix);
+
+    addFloat(layout,
+             Params::sustain_ID,
+             Params::sustain_name,
+             Params::sustain_min,
+             Params::sustain_max,
+             Params::sustain_default,
+             Params::sustain_stepSize,
+             Params::sustain_skew,
+             Params::sustain_suffix);
+
+    addFloat(layout,
+             Params::release_ID,
+             Params::release_name,
+             Params::release_min,
+             Params::release_max,
+             Params::release_default,
+             Params::release_stepSize,
+             Params::release_skew,
+             Params::release_suffix);
+
+    addChoice(layout,
+              Params::ramp_ID,
+              Params::ramp_name,
+              Params::ramp_choices,
+              Params::ramp_default);
+
+    addBool(
+        layout, Params::bypass_ID, Params::bypass_name, Params::bypass_default);
+
+    // use addInt and addChoice for ints and choices
+
+    return layout;
+}
+
+/* ======================================================== */
+
+void Processor::prepareToPlay(double sample_rate, int buffer_size) {
+    outGainSmooth.prepare(sample_rate, buffer_size, &apvts, Params::outGain_ID);
+    inGainSmooth.prepare(sample_rate, buffer_size, &apvts, Params::inGain_ID);
+    mixSmooth.prepare(sample_rate, buffer_size, &apvts, Params::mix_ID);
+
+    ampSmooth.prepare(sample_rate, buffer_size, &apvts, Params::amp_ID);
+
+    attackSmooth.prepare(sample_rate, buffer_size, &apvts, Params::attack_ID);
+    holdSmooth.prepare(sample_rate, buffer_size, &apvts, Params::hold_ID);
+    decaySmooth.prepare(sample_rate, buffer_size, &apvts, Params::decay_ID);
+    sustainSmooth.prepare(sample_rate, buffer_size, &apvts, Params::sustain_ID);
+    releaseSmooth.prepare(sample_rate, buffer_size, &apvts, Params::release_ID);
+
+    bypassParam.prepare(sample_rate, buffer_size, &apvts, Params::bypass_ID);
+    rampParam.prepare(sample_rate, buffer_size, &apvts, Params::ramp_ID);
+
+    // Prepare any objects here
+    // e.g. Delay.prepare(sample_rate);
+
+    for (Oscillator &osc : oscillator) {
+        osc.prepare((float)sample_rate, buffer_size);
+    }
+
+    envelope.prepare(sample_rate, buffer_size);
+}
+
+void Processor::releaseResources() {}
+
+void Processor::processBlock(juce::AudioBuffer<float> &buffer,
+                             juce::MidiBuffer         &messages) {
+
+    juce::ScopedNoDenormals no_denormals;
+
+    int total_input_channels  = getTotalNumInputChannels();
+    int total_output_channels = getTotalNumOutputChannels();
+    int num_samples           = buffer.getNumSamples();
+
+    for (auto i = total_input_channels; i < total_output_channels; ++i) {
+        buffer.clear(i, 0, buffer.getNumSamples());
+    }
+
+    /* ======================================================== */
+
+    // Read all control-rate parameters
+    bool bypass = bypassParam.getNextValue();
+
+    if (bypass)
+        return;
+
+    // Update smoothers
+    outGainSmooth.update();
+    inGainSmooth.update();
+    mixSmooth.update();
+
+    attackSmooth.update();
+    holdSmooth.update();
+    decaySmooth.update();
+    sustainSmooth.update();
+    releaseSmooth.update();
+
+    ampSmooth.update();
+
+    // Update objects for discrete changes
+    // eg. if (filterTypeParam.changed()) filter.updateCoefficients();
+
+    int ramp_value = rampParam.getNextValue();
+    if (ramp_value == 0) {
+        // Linear
+        envelope.setRampShape(AHDSR::RampShape::Linear);
+    } else {
+        // Exponential
+        envelope.setRampShape(AHDSR::RampShape::Exponential);
+    }
+
+    /* ======================================================== */
+
+    MidiCursor midi(messages);
+
+    constexpr int max_channels = 8;
+    auto          num_channels = total_output_channels;
+
+    std::array<float *, max_channels> channel_ptrs;
+
+    for (int channel = 0; channel < num_channels; ++channel) {
+        channel_ptrs[(size_t)channel] = buffer.getWritePointer(channel);
+    }
+
+    /* ======================================================== */
+
+    // Process audio and midi messages
+
+    for (int sample = 0; sample < num_samples; ++sample) {
+
+        while (midi.hasEvent() && midi.event().samplePosition == sample) {
+            juce::MidiMessage message = midi.event().getMessage();
+
+            // apply changes for this sample based on the midi message received
+            // this sample
+
+            if (message.isNoteOn()) {
+                midiNote        = message.getNoteNumber();
+                midiNoteChanged = true;
+                isNoteOn        = true;
+                envelope.noteOn();
+
+                if (message.getVelocity() == 0) {
+                    isNoteOn = false;
+                    envelope.noteOff();
+                }
+            }
+
+            if (message.isNoteOff() && message.getNoteNumber() == midiNote) {
+                isNoteOn = false;
+                envelope.noteOff();
+            }
+
+            midi.advance();
+        }
+
+        float in_gain  = std::pow(10.f, inGainSmooth.getNextValue() / 20.f);
+        float out_gain = std::pow(10.f, outGainSmooth.getNextValue() / 20.f);
+        float mix      = mixSmooth.getNextValue();
+
+        float amp = ampSmooth.getNextValue();
+
+        // Update objects for continuous changes here
+        envelope.setParameters(attackSmooth.getNextValue(),
+                               sustainSmooth.getNextValue(),
+                               decaySmooth.getNextValue(),
+                               sustainSmooth.getNextValue(),
+                               releaseSmooth.getNextValue());
+
+        if (midiNoteChanged) {
+            for (Oscillator &osc : oscillator)
+                osc.setFrequency(midiFrequencies[(size_t)midiNote]);
+            midiNoteChanged = false;
+        }
+
+        float envelope_value = (float)envelope.update();
+
+        for (int channel = 0; channel < num_channels; ++channel) {
+            float *channel_data = channel_ptrs[(size_t)channel];
+            float  dry          = channel_data[sample];
+            float  xn           = dry * in_gain;
+
+            /* ======================================================== */
+
+            float yn = xn;
+            float osc =
+                amp * (float)oscillator[(size_t)channel].processSample();
+            yn = osc * envelope_value;
+
+            /* ======================================================== */
+
+            float mixed = (yn * mix * 0.01f) + (dry * (100.f - mix) * 0.01f);
+            channel_data[sample] = mixed * out_gain;
+        }
+    }
+}
+
+/* ======================================================== */
+
+void Processor::getStateInformation(juce::MemoryBlock &dest) {
+    auto                              state = apvts.copyState();
+    std::unique_ptr<juce::XmlElement> xml(state.createXml());
+    copyXmlToBinary(*xml, dest);
+}
+
+void Processor::setStateInformation(const void *data, int size_in_bytes) {
+    std::unique_ptr<juce::XmlElement> xml_state(
+        getXmlFromBinary(data, size_in_bytes));
+    if (xml_state.get() != nullptr)
+        if (xml_state->hasTagName(apvts.state.getType()))
+            apvts.replaceState(juce::ValueTree::fromXml(*xml_state));
+}
+
+/* ======================================================== */
+
+juce::AudioProcessor *JUCE_CALLTYPE createPluginFilter() {
+    return new Processor();
+}
