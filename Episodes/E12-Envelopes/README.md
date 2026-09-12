@@ -5,11 +5,11 @@ our basic synthesizer.
 
 ## Classes
 
-- TODO: [envelope.h](/Templates_Materials/Classes/envelope.h)
+- [envelope.h](/Templates_Materials/Classes/envelope.h)
 
 ## Plugins
 
-- TODO: [asdMonoSynthV3](/Templates_Materials/Plugins/asdMonoSynthV3)
+- [asdMonoSynthV3](/Templates_Materials/Plugins/asdMonoSynthV3)
 
 ## Resources
 
