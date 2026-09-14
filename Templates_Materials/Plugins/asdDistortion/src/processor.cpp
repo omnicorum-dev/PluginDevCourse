@@ -2,6 +2,8 @@
 #include "juce_audio_basics/juce_audio_basics.h"
 #include "juce_audio_processors_headless/juce_audio_processors_headless.h"
 #include "juce_core/juce_core.h"
+#include "juce_dsp/juce_dsp.h"
+#include <cstddef>
 
 /* ======================================================== */
 
@@ -107,8 +109,8 @@ void Processor::prepareToPlay(double sample_rate, int buffer_size) {
 
     bypassParam.prepare(sample_rate, buffer_size, &apvts, Params::bypass_ID);
 
-    // Prepare any objects here
-    // e.g. Delay.prepare(sample_rate);
+    oversampling.reset();
+    oversampling.initProcessing(static_cast<juce::uint32>(buffer_size));
 }
 
 void Processor::releaseResources() {}
@@ -117,6 +119,8 @@ void Processor::processBlock(juce::AudioBuffer<float> &buffer,
                              juce::MidiBuffer         &messages) {
 
     juce::ScopedNoDenormals no_denormals;
+
+    (void)messages;
 
     int total_input_channels  = getTotalNumInputChannels();
     int total_output_channels = getTotalNumOutputChannels();
@@ -172,9 +176,25 @@ void Processor::processBlock(juce::AudioBuffer<float> &buffer,
 
     /* ======================================================== */
 
-    // Process audio and midi messages
+    // UPSAMPLING
+    juce::dsp::AudioBlock<float> block(buffer);
+    auto oversampled_block = oversampling.processSamplesUp(block);
 
-    for (int sample = 0; sample < num_samples; ++sample) {
+    int num_oversampled_samples  = oversampled_block.getNumSamples();
+    int num_oversampled_channels = oversampled_block.getNumChannels();
+
+    std::array<float *, max_channels> oversampled_channel_ptrs;
+
+    for (int channel = 0; channel < num_oversampled_channels; ++channel) {
+        oversampled_channel_ptrs[(size_t)channel] =
+            oversampled_block.getChannelPointer((size_t)channel);
+    }
+
+    /* ======================================================== */
+
+    // Process audio and midi messages IN OVERSAMPLED BLOCK
+
+    for (int sample = 0; sample < num_oversampled_samples; ++sample) {
 
         float in_gain  = std::pow(10.f, inGainSmooth.getNextValue() / 20.f);
         float out_gain = std::pow(10.f, outGainSmooth.getNextValue() / 20.f);
@@ -203,7 +223,8 @@ void Processor::processBlock(juce::AudioBuffer<float> &buffer,
         }
 
         for (int channel = 0; channel < num_channels; ++channel) {
-            float *channel_data = channel_ptrs[(size_t)channel];
+            // float *channel_data = channel_ptrs[(size_t)channel];
+            float *channel_data = oversampled_channel_ptrs[(size_t)channel];
             float  dry          = channel_data[sample];
             float  xn           = dry * in_gain;
 
@@ -234,6 +255,12 @@ void Processor::processBlock(juce::AudioBuffer<float> &buffer,
             channel_data[sample] = mixed * out_gain;
         }
     }
+
+    /* ======================================================== */
+
+    // Downsample back to original rate
+
+    oversampling.processSamplesDown(block);
 }
 
 /* ======================================================== */

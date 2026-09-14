@@ -3,6 +3,7 @@
 #include "distortion.h"
 #include "parameter_layout.h"
 #include <juce_audio_processors/juce_audio_processors.h>
+#include <juce_dsp/juce_dsp.h>
 
 // task: 20260912-144626
 
@@ -146,4 +147,11 @@ class Processor final : public juce::AudioProcessor {
     std::array<TanhShaper, 2>    tanh_shaper;
     std::array<RectifierFull, 2> full_rectifier;
     std::array<RectifierHalf, 2> half_rectifier;
+
+    juce::dsp::Oversampling<float> oversampling{
+        2,
+        4,
+        juce::dsp::Oversampling<float>::filterHalfBandFIREquiripple,
+        true,
+        false};
 };

@@ -1,6 +1,6 @@
 # Add oversampling to asdDistortion
 
-- STATUS: OPEN
+- STATUS: CLOSED
 - PRIORITY: 100
 - TAGS: code,plugin
 
