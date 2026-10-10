@@ -173,3 +173,24 @@ float yn = std::clamp(xn, -1.0f, 1.0f);
 That's it! In a coming episode, I'll show you how to make parameters
 that are shown in the DAW to control that -1 to +1 threshold, but
 for now, let's get our plugin built and running in our DAW.
+
+## Building the Plugin
+
+This process varies depending on the operating system and
+build system that you're working with. Since I'm on Mac and using
+XCode, I'll show you how to build in this environment.
+
+Apple likes to change the XCode interface a lot, but in the current
+version, you can pick the target you're building here. If you want
+fast builds, just pick one target, but if you want to build
+multiple, you can pick the `All` target.
+
+To build the plugin, press the Play button. XCode will report whether
+the build failed or succeeded.
+
+And that's it! JUCE automatically copies the built plugins into your
+USER plugin folder. On Mac, that's in `~/Library/Audio/Plug-Ins/VST3 or Components`
+
+Open your DAW of choice and have it rescan your plugins.
+It should be automatically sorted into your vendor folder,
+and you should be able to load in your hard clipper and use it!
