@@ -58,3 +58,8 @@ that can be used in JUCE plugins or in other audio applications! We'll
 be using as little JUCE-exclusive stuff as much as possible. Think of
 it as building a toolkit of effects and generators that you can then
 cobble together into whatever audio application your heart desires.
+
+## Notes to self
+
+Add a bit about required software.
+XCode on Mac, Visual Studio on Windows. DAW (Reaper is free)
