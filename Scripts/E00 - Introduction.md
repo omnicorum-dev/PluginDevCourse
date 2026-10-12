@@ -59,7 +59,24 @@ be using as little JUCE-exclusive stuff as much as possible. Think of
 it as building a toolkit of effects and generators that you can then
 cobble together into whatever audio application your heart desires.
 
-## Notes to self
+## What do you need?
 
-Add a bit about required software.
-XCode on Mac, Visual Studio on Windows. DAW (Reaper is free)
+You don't need much to get started making plugins, and everything
+I'm about to list is completely free!
+If you're on Mac, you're going to need to install XCode.
+You can download it on the App Store.
+If you're on Windows, you're going to need Visual Studio 2026.
+Confusingly, Visual Studio is not the same as Visual Studio Code.
+If you google "Visual Studio Community Edition," the correct website
+should pop up. When you're installing it, make sure you install the C++
+development tools along with it.
+
+The only other thing you're going to need beforehand is a Digital
+Audio Workstation, or DAW for short. There are lots of DAWs out there,
+but if you're looking for one that's powerful and free, I highly recommend
+Reaper.
+
+And that's it! You have everything you need to follow along with the
+rest of the course.
+
+I hope to see you in Episode 1: Building your first plugin!

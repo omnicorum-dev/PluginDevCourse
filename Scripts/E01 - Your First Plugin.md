@@ -2,7 +2,7 @@
 
 Task: 20260911-162727
 
-Hello! and welcome to the introduction to audio software development!
+Hello! and welcome to the introduction to audio software development course!
 In this episode, you're going to build your first complete plugin:
 a hard-clipper!
 

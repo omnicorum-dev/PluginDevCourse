@@ -1,6 +1,6 @@
 # Episode 1 script
 
-- STATUS: OPEN
+- STATUS: CLOSED
 - PRIORITY: 90
 - TAGS: script
 
